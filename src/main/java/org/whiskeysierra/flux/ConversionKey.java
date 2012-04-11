@@ -22,7 +22,7 @@ final class ConversionKey<I, O> {
             return true;
         } else if (getClass() == that.getClass()) {
             final ConversionKey other = ConversionKey.class.cast(that);
-            return Objects.equal(input, other.output) && Objects.equal(output, other.output);
+            return Objects.equal(input, other.input) && Objects.equal(output, other.output);
         } else {
             return false;
         }

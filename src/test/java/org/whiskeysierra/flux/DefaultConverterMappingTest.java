@@ -3,8 +3,7 @@ package org.whiskeysierra.flux;
 import com.google.common.reflect.TypeToken;
 import org.junit.Assert;
 import org.junit.Test;
-
-import javax.annotation.Nullable;
+import org.whiskeysierra.flux.converters.ObjectToStringConverter;
 
 public final class DefaultConverterMappingTest {
 
@@ -12,14 +11,10 @@ public final class DefaultConverterMappingTest {
     public void register() {
         final ConverterMapping mapping = new DefaultConverterMapping();
 
-        final Converter<Object, Object> converter = new Converter<Object, Object>() {
-            public Object convert(@Nullable Object input) {
-                return null;
-            }
-        };
+        final Converter<Object, String> converter = new ObjectToStringConverter();
 
         final TypeToken<Object> input = TypeToken.of(Object.class);
-        final TypeToken<Object> output = TypeToken.of(Object.class);
+        final TypeToken<String> output = TypeToken.of(String.class);
 
         mapping.register(input, output, converter);
 

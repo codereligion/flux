@@ -5,12 +5,12 @@ import com.google.common.reflect.TypeToken;
 
 public interface Convertable {
 
-    <T> T to(Class<T> type);
+    <O> O to(Class<O> type);
 
-    <T> T to(TypeToken<T> token);
+    <O> O to(TypeToken<O> token);
 
-    <T> Optional<T> tryTo(Class<T> type);
+    <O> Optional<O> tryTo(Class<O> type);
 
-    <T> Optional<T> tryTo(TypeToken<T> type);
+    <O> Optional<O> tryTo(TypeToken<O> type);
 
 }

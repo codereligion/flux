@@ -18,6 +18,7 @@ public final class DefaultConverterMapping extends AbstractConverterMapping {
         this.map = map;
     }
 
+    @Override
     public <I, O> void register(TypeToken<I> input, TypeToken<O> output, Converter<I, O> converter) {
         final ConversionKey<I, O> key = ConversionKey.of(input, output);
         final Converter<?, ?> old = map.get(key);
@@ -25,6 +26,7 @@ public final class DefaultConverterMapping extends AbstractConverterMapping {
         map.put(key, converter);
     }
 
+    @Override
     public <I, O> void tryRegister(TypeToken<I> input, TypeToken<O> output, Converter<I, O> converter) {
         final ConversionKey<I, O> key = ConversionKey.of(input, output);
         final Converter<?, ?> old = map.get(key);
@@ -34,8 +36,7 @@ public final class DefaultConverterMapping extends AbstractConverterMapping {
 
     @SuppressWarnings("unchecked")
     public <I, O> Converter<I, O> search(TypeToken<I> input, TypeToken<O> output) {
-        final ConversionKey<I, O> key = ConversionKey.of(input, output);
-        return (Converter<I, O>) map.get(key);
+        return (Converter<I, O>) map.get(ConversionKey.of(input, output));
     }
 
 }
