@@ -1,14 +1,14 @@
-package org.whiskeysierra.flipflop;
+package org.whiskeysierra.flux;
 
 import java.util.Map;
 
 public final class Usage {
 
     public void test() {
-        FlippingRegistry registry = null;
+        ConverterFactory registry = null;
         final Map<String, Object> original = null;
 
-        final Map<String, Flippable> map = registry.flip(original);
+        final Map<String, Convertable> map = registry.flip(original);
 
         map.get("key").to(Long.class);
         map.get("key").tryTo(Long.class).get();

@@ -1,9 +1,9 @@
-package org.whiskeysierra.flipflop;
+package org.whiskeysierra.flux;
 
 import com.google.common.base.Optional;
 import com.google.common.reflect.TypeToken;
 
-public interface Flippable {
+public interface Convertable {
 
     <T> T to(Class<T> type);
 
