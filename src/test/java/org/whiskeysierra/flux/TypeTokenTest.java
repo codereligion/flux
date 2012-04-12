@@ -2,6 +2,7 @@ package org.whiskeysierra.flux;
 
 import com.google.common.base.Objects;
 import com.google.common.reflect.TypeToken;
+import com.google.common.reflect.TypeToken.TypeSet;
 import org.junit.Assert;
 import org.junit.Test;
 import org.whiskeysierra.flux.converters.collections.MapToConvertableMapConverter;
@@ -11,32 +12,40 @@ import javax.sound.sampled.BooleanControl;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public final class TypeTokenTest {
 
     @Test
-    public void classLiteral() {
-        TypeToken.of(String.class);
-    }
-
-    @Test
-    public void subclass() {
-        new TypeToken<String>() {
+    public void variable() {
+        final TypeToken<?> exptected = new TypeToken<List<?>>() {
         };
+
+        final Object list = new ArrayList<String>();
+        final TypeToken<? extends Object> token = TypeToken.of(list.getClass());
+
+        System.out.println(token.getTypes().contains(exptected));
+
+        for (TypeToken<?> actual : token.getTypes()) {
+            //if (exptected.isAssignableFrom(actual)) {
+            if (exptected.equals(actual)) {
+                System.out.println(actual + " matches " + exptected);
+                return;
+            } else {
+                System.out.println(actual + " does not match " + exptected);
+            }
+        }
+
+        Assert.fail("No match found");
     }
 
     @Test
     public void equals() {
         Assert.assertEquals(TypeToken.of(String.class), new TypeToken<String>() {
         });
-    }
-
-    @Test
-    public void genericSubclass() {
-        new TypeToken<Collection<String>>() {
-        };
     }
 
     @Test

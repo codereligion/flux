@@ -1,5 +1,6 @@
 package org.whiskeysierra.flux.converters.collections;
 
+import com.google.common.collect.Iterables;
 import org.whiskeysierra.flux.ConversionContext;
 import org.whiskeysierra.flux.Convertable;
 import org.whiskeysierra.flux.ConvertableFactory;
@@ -15,7 +16,7 @@ public final class IterableToConvertableIterableConverter implements Converter<I
 
     @Override
     public Iterable<Convertable> convert(Iterable<Object> input, ConversionContext context) {
-        return factory.transform(input);
+        return Iterables.transform(input, factory.asFunction());
     }
 
 }

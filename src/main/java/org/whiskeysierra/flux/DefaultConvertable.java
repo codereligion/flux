@@ -3,31 +3,24 @@ package org.whiskeysierra.flux;
 import com.google.common.base.Optional;
 import com.google.common.reflect.TypeToken;
 
-public final class DefaultConvertable extends AbstractConvertable {
+public final class DefaultConvertable<I> extends AbstractConvertable {
 
-    private final ConverterMapping mapping;
-    private final Object data;
+    private final Conversion conversion;
+    private final I input;
 
-    public DefaultConvertable(ConverterMapping mapping, Object data) {
-        this.mapping = mapping;
-        this.data = data;
+    public DefaultConvertable(I input, Conversion conversion) {
+        this.conversion = conversion;
+        this.input = input;
     }
 
     @Override
     public Optional<Object> raw() {
-        return Optional.of(data);
+        return Optional.<Object>of(input);
     }
 
     @Override
     public <O> Optional<O> tryTo(TypeToken<O> output) {
-        final TypeToken<Object> input = new TypeToken<Object>(data.getClass()) {};
-        final Converter<Object, O> converter = mapping.search(input, output);
-
-        if (converter == null) {
-            return Optional.absent();
-        } else {
-            return Optional.fromNullable(converter.convert(data, null));
-        }
+        return Optional.fromNullable(conversion.<I, O>run(input, output));
     }
 
 }

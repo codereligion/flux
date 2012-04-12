@@ -7,13 +7,13 @@ import edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseMultigraph;
 import edu.uci.ics.jung.graph.util.EdgeType;
-import org.whiskeysierra.flux.AbstractConverterMapping;
 import org.whiskeysierra.flux.Converter;
+import org.whiskeysierra.flux.ConverterMapping;
 
 import java.lang.reflect.TypeVariable;
 import java.util.List;
 
-public final class TransitiveConverterMapping extends AbstractConverterMapping {
+public final class TransitiveConverterMapping implements ConverterMapping {
 
     private final Graph<TypeToken<?>, Converter<Object, Object>> graph =
         new SparseMultigraph<TypeToken<?>, Converter<Object, Object>>();

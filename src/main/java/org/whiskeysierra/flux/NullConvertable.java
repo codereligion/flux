@@ -31,4 +31,5 @@ public enum NullConvertable implements Convertable {
     public <O> Optional<O> tryTo(TypeToken<O> type) {
         return Optional.absent();
     }
+
 }

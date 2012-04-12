@@ -10,8 +10,4 @@ public interface ConverterMapping {
 
     <I, O> Converter<I, O> search(TypeToken<I> input, TypeToken<O> output);
 
-    <I> Converter<I, Object> searchByInput(TypeToken<I> input);
-
-    <O> Converter<Object, O> searchByOutput(TypeToken<O> output);
-
 }

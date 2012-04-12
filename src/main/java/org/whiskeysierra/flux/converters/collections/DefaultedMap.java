@@ -1,4 +1,4 @@
-package org.whiskeysierra.flux;
+package org.whiskeysierra.flux.converters.collections;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.ForwardingMap;

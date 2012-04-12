@@ -2,19 +2,12 @@ package org.whiskeysierra.flux;
 
 import com.google.common.base.Function;
 
-import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import javax.annotation.Nullable;
 
-public interface ConvertableFactory extends Function<Object, Convertable> {
+public interface ConvertableFactory {
 
-    Iterable<Convertable> transform(@Nonnull Iterable<?> iterable);
+    Convertable transform(@Nullable Object input);
 
-    Collection<Convertable> transform(@Nonnull Collection<?> collection);
-
-    List<Convertable> transform(@Nonnull List<?> list);
-
-    <K> Map<K, Convertable> transform(@Nonnull Map<K, ?> map);
+    Function<Object, Convertable> asFunction();
 
 }

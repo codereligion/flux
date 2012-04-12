@@ -3,12 +3,12 @@ package org.whiskeysierra.flux.direct;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
-import org.whiskeysierra.flux.AbstractConverterMapping;
 import org.whiskeysierra.flux.Converter;
+import org.whiskeysierra.flux.ConverterMapping;
 
 import java.util.Map;
 
-public final class DirectConverterMapping extends AbstractConverterMapping {
+public final class DirectConverterMapping implements ConverterMapping {
 
     private final Map<ConversionKey<?, ?>, Converter<?, ?>> map;
 

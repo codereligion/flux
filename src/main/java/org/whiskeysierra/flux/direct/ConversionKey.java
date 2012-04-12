@@ -36,7 +36,7 @@ final class ConversionKey<I, O> {
 
     @Override
     public String toString() {
-        return "ConversionKey[input=" + input + ", output=" + output + "]";
+        return input + " -> " + output;
     }
 
     public static <I, O> ConversionKey<I, O> of(Converter<I, O> converter) {

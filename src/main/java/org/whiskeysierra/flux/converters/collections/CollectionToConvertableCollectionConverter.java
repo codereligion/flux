@@ -1,5 +1,6 @@
 package org.whiskeysierra.flux.converters.collections;
 
+import com.google.common.collect.Collections2;
 import org.whiskeysierra.flux.ConversionContext;
 import org.whiskeysierra.flux.Convertable;
 import org.whiskeysierra.flux.ConvertableFactory;
@@ -17,7 +18,7 @@ public final class CollectionToConvertableCollectionConverter implements Convert
 
     @Override
     public Collection<Convertable> convert(Collection<Object> input, ConversionContext context) {
-        return factory.transform(input);
+        return Collections2.transform(input, factory.asFunction());
     }
 
 }

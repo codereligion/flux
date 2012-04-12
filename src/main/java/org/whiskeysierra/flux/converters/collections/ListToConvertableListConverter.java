@@ -1,5 +1,6 @@
 package org.whiskeysierra.flux.converters.collections;
 
+import com.google.common.collect.Lists;
 import org.whiskeysierra.flux.ConversionContext;
 import org.whiskeysierra.flux.Convertable;
 import org.whiskeysierra.flux.ConvertableFactory;
@@ -17,7 +18,7 @@ public final class ListToConvertableListConverter implements Converter<List<Obje
 
     @Override
     public List<Convertable> convert(List<Object> input, ConversionContext context) {
-        return factory.transform(input);
+        return Lists.transform(input, factory.asFunction());
     }
 
 }
