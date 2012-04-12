@@ -3,7 +3,7 @@ package org.whiskeysierra.flux;
 import com.google.common.collect.Maps;
 import org.junit.Assert;
 import org.junit.Test;
-import org.whiskeysierra.flux.converters.ObjectToStringConverter;
+import org.whiskeysierra.flux.converters.base.ObjectToStringConverter;
 
 import java.util.Map;
 
@@ -34,9 +34,9 @@ public final class DefaultConvertableTest {
 
         final Map<String, Convertable> map = factory.transform(original);
 
+        Assert.assertSame(value, map.get("key").raw().get());
         Assert.assertEquals(value.toString(), map.get("key").to(String.class));
         Assert.assertEquals(value.toString(), map.get("key").tryTo(String.class).orNull());
-
     }
 
 }

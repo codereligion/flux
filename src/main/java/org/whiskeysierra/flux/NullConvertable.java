@@ -8,6 +8,11 @@ public enum NullConvertable implements Convertable {
     INSTANCE;
 
     @Override
+    public Optional<Object> raw() {
+        return Optional.absent();
+    }
+
+    @Override
     public <O> O to(Class<O> type) {
         throw new IllegalStateException();
     }

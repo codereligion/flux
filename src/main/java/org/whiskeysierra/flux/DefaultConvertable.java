@@ -14,6 +14,11 @@ public final class DefaultConvertable extends AbstractConvertable {
     }
 
     @Override
+    public Optional<Object> raw() {
+        return Optional.of(data);
+    }
+
+    @Override
     public <O> Optional<O> tryTo(TypeToken<O> output) {
         final TypeToken<Object> input = new TypeToken<Object>(data.getClass()) {};
         final Converter<Object, O> converter = mapping.search(input, output);
@@ -21,7 +26,7 @@ public final class DefaultConvertable extends AbstractConvertable {
         if (converter == null) {
             return Optional.absent();
         } else {
-            return Optional.fromNullable(converter.convert(data));
+            return Optional.fromNullable(converter.convert(data, null));
         }
     }
 

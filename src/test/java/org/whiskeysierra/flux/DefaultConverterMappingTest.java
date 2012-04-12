@@ -3,7 +3,7 @@ package org.whiskeysierra.flux;
 import com.google.common.reflect.TypeToken;
 import org.junit.Assert;
 import org.junit.Test;
-import org.whiskeysierra.flux.converters.ObjectToStringConverter;
+import org.whiskeysierra.flux.converters.base.ObjectToStringConverter;
 
 public final class DefaultConverterMappingTest {
 

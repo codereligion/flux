@@ -4,6 +4,6 @@ import javax.annotation.Nullable;
 
 public interface Converter<I, O> {
 
-    O convert(@Nullable I input);
+    O convert(@Nullable I input, ConversionContext context);
 
 }
