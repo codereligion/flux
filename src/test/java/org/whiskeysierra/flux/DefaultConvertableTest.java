@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import org.junit.Assert;
 import org.junit.Test;
 import org.whiskeysierra.flux.converters.base.ObjectToStringConverter;
+import org.whiskeysierra.flux.direct.DirectConverterMapping;
 
 import java.util.Map;
 
@@ -11,7 +12,7 @@ public final class DefaultConvertableTest {
 
     @Test
     public void emptyMapping() {
-        final ConverterMapping mapping = new DefaultConverterMapping();
+        final ConverterMapping mapping = new DirectConverterMapping();
         final ConvertableFactory factory = new DefaultConvertableFactory(mapping);
         final Map<String, Object> original = Maps.newHashMap();
         final Map<String, Convertable> map = factory.transform(original);
@@ -22,9 +23,9 @@ public final class DefaultConvertableTest {
 
     @Test
     public void singleBinding() {
-        final ConverterMapping mapping = new DefaultConverterMapping();
+        final ConverterMapping mapping = new DirectConverterMapping();
 
-        mapping.register(Object.class, String.class, new ObjectToStringConverter());
+        mapping.register(new ObjectToStringConverter());
 
         final ConvertableFactory factory = new DefaultConvertableFactory(mapping);
         final Map<String, Object> original = Maps.newHashMap();

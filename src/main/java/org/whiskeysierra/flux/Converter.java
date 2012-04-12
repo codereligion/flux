@@ -1,9 +1,7 @@
 package org.whiskeysierra.flux;
 
-import javax.annotation.Nullable;
-
 public interface Converter<I, O> {
 
-    O convert(@Nullable I input, ConversionContext context);
+    O convert(I input, ConversionContext context);
 
 }

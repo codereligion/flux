@@ -1,8 +1,9 @@
-package org.whiskeysierra.flux;
+package org.whiskeysierra.flux.direct;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.reflect.TypeToken;
+import org.whiskeysierra.flux.Converter;
 
 import java.lang.reflect.TypeVariable;
 
@@ -39,9 +40,17 @@ final class ConversionKey<I, O> {
     }
 
     public static <I, O> ConversionKey<I, O> of(Converter<I, O> converter) {
-        final Class<? extends Converter> type = converter.getClass();
-        final TypeVariable<? extends Class<? extends Converter>>[] parameters = type.getTypeParameters();
-        return of(new TypeToken<I>(parameters[0].getClass()) { }, new TypeToken<O>(parameters[1].getClass()) { });
+        final TypeToken<?> token = TypeToken.of(converter.getClass()).getSupertype(Converter.class);
+
+        final TypeVariable<Class<Converter>>[] typeParameters = Converter.class.getTypeParameters();
+
+        @SuppressWarnings("unchecked")
+        final TypeToken<I> input = (TypeToken<I>) token.resolveType(typeParameters[0]);
+
+        @SuppressWarnings("unchecked")
+        final TypeToken<O> output = (TypeToken<O>) token.resolveType(typeParameters[1]);
+
+        return new ConversionKey<I, O>(input, output);
     }
 
     public static <I, O> ConversionKey<I, O> of(TypeToken<I> input, TypeToken<O> output) {
