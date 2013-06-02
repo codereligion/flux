@@ -88,8 +88,6 @@ public final class DirectConverterMapping extends AbstractConverterMapping {
             final Converter<?, ?> converter = map.get(key);
 
             if (converter == null && features.contains(Feature.SUPER_TYPING)) {
-                System.out.println(key);
-                System.out.println(implicit.keySet());
                 return cast(implicit.get(key));
             } else {
                 return cast(converter);
