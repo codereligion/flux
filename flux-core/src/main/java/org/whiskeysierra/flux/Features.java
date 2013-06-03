@@ -13,7 +13,7 @@ public final class Features {
     }
 
     public static FeatureSet defaults() {
-        return of(Feature.SUPER_TYPING, Feature.SUB_TYPING);
+        return of(Feature.SUPER_TYPING, Feature.SUB_TYPING, Feature.IDENTITY);
     }
 
     public static FeatureSet of(Feature... features) {

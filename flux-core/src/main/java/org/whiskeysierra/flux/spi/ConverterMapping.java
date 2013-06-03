@@ -2,6 +2,8 @@ package org.whiskeysierra.flux.spi;
 
 import com.google.common.reflect.TypeToken;
 
+import javax.annotation.Nullable;
+
 public interface ConverterMapping {
 
     <I, O> void register(Converter<I, O> converter) throws IllegalArgumentException;
@@ -55,6 +57,7 @@ public interface ConverterMapping {
      * @param output
      * @return
      */
+    @Nullable
     <I, O> Converter<I, O> search(TypeToken<I> input, TypeToken<O> output);
 
 }

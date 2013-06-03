@@ -49,13 +49,15 @@
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.5.2</version>
                 <configuration>
-                    <haltOnFailure>true</haltOnFailure>
-                    <lineRate>100</lineRate>
-                    <branchRate>100</branchRate>
-                    <packageLineRate>100</packageLineRate>
-                    <packageBranchRate>100</packageBranchRate>
-                    <totalLineRate>100</totalLineRate>
-                    <totalBranchRate>100</totalBranchRate>
+                    <check>
+                        <haltOnFailure>true</haltOnFailure>
+                        <lineRate>100</lineRate>
+                        <branchRate>100</branchRate>
+                        <packageLineRate>100</packageLineRate>
+                        <packageBranchRate>100</packageBranchRate>
+                        <totalLineRate>100</totalLineRate>
+                        <totalBranchRate>100</totalBranchRate>
+                    </check>
                 </configuration>
                 <executions>
                     <execution>
@@ -77,6 +79,11 @@
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>findbugs</artifactId>
             <version>2.0.1</version>
         </dependency>
         <dependency>

@@ -10,7 +10,7 @@ public final class DefaultConvertableTest {
 
     @Test
     public void emptyMapping() {
-        final FeatureSet features = Features.defaults();
+        final FeatureSet features = Features.of(Feature.SILENT);
         final ConverterMapping mapping = new DirectConverterMapping(features);
         final Capacitor factory = new DefaultCapacitor(mapping, features);
 

@@ -1,6 +1,5 @@
 package org.whiskeysierra.flux;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.common.reflect.TypeToken;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,7 +19,6 @@ import org.whiskeysierra.flux.spi.ConverterMapping;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public final class IntegrationTest {
 
@@ -97,18 +95,6 @@ public final class IntegrationTest {
     public void identity() {
         final Capacitor unit = unit(Features.of(Feature.IDENTITY));
         Assert.assertEquals(true, unit.convert(true).to(Boolean.class));
-    }
-
-    @Test
-    public void partialQualifiedGeneric() {
-        final Map<?, ?> input = ImmutableMap.of("a", "12345", "b", "true", "c", "test");
-        final Map<String, Convertable> output = unit().convert(input).to(Tokens.forMap(String.class));
-
-        Assert.assertSame("12345", output.get("a").raw());
-        Assert.assertEquals(12345L, (long) output.get("a").to(Long.class));
-        Assert.assertSame("true", output.get("b").raw());
-        Assert.assertEquals(true, output.get("b").to(Boolean.class));
-        Assert.assertSame("test", output.get("c").raw());
     }
 
 }
