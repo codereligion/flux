@@ -3,5 +3,5 @@ jdk:
   - oraclejdk7
   - openjdk6
 script: 
-  - sh -c 'cd flux-core' && mvn test
-  - sh -c 'cd flux-transitive' && mvn test
+  - cd flux-core && mvn test
+  - cd flux-transitive && mvn test
