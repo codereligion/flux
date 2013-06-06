@@ -575,6 +575,7 @@ public abstract class AbstractConverterMappingTest {
         @SuppressWarnings("unchecked")
         final Converter<Number, String> converter = EasyMock.createMock(Converter.class);
         EasyMock.replay(converter);
+
         unit.register(Number.class, String.class, converter);
 
         final Converter<Integer, String> found = unit.search(Integer.class, String.class);
@@ -591,6 +592,7 @@ public abstract class AbstractConverterMappingTest {
         @SuppressWarnings("unchecked")
         final Converter<Number, String> converter = EasyMock.createMock(Converter.class);
         EasyMock.replay(converter);
+
         unit.register(Number.class, String.class, converter);
 
         final Converter<Number, Object> found = unit.search(Number.class, Object.class);
@@ -607,6 +609,7 @@ public abstract class AbstractConverterMappingTest {
         @SuppressWarnings("unchecked")
         final Converter<Number, String> converter = EasyMock.createMock(Converter.class);
         EasyMock.replay(converter);
+
         unit.register(Number.class, String.class, converter);
 
         final Converter<Integer, Object> found = unit.search(Integer.class, Object.class);
@@ -614,7 +617,6 @@ public abstract class AbstractConverterMappingTest {
                 "for 'Integer -> Object'", found);
 
         EasyMock.verify(converter);
-
     }
 
 }
