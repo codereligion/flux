@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+directory=$(dirname $0)
+
+for module in $(cat ${directory}/.modules); do
+    (cd ${module} && mvn $*)
+done

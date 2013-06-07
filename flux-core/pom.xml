@@ -26,7 +26,7 @@
                 <version>2.5.2</version>
                 <configuration>
                     <check>
-                        <haltOnFailure>true</haltOnFailure>
+                        <haltOnFailure>false</haltOnFailure>
                         <lineRate>100</lineRate>
                         <branchRate>100</branchRate>
                         <packageLineRate>100</packageLineRate>

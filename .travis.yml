@@ -3,5 +3,7 @@ jdk:
   - oraclejdk7
   - openjdk6
 script: 
-  - (cd flux-core && mvn install)
-  - (cd flux-transitive && mvn install)
+  - build install
+notifications:
+  email:
+    on_failure: change
