@@ -25,7 +25,7 @@ class DefaultConversion implements Conversion {
         Preconditions.checkNotNull(input, "Input");
         Preconditions.checkNotNull(output, "Output");
 
-        if (features.contains(Feature.IDENTITY) && input.isAssignableFrom(output)) {
+        if (supportsIdentity(input, output)) {
             return Optional.fromNullable(this.<I, O>cast(value));
         } else {
             final Converter<I, O> converter = finder.search(input, output);
@@ -34,21 +34,37 @@ class DefaultConversion implements Conversion {
                 if (features.contains(Feature.SILENT)) {
                     return Optional.absent();
                 } else {
-                    throw new IllegalStateException(
-                            String.format("No converter found for '%s -> %s'", input, output));
+                    throw new UnknownConversionException(
+                        String.format("No converter found for '%s -> %s'", input, output));
                 }
             } else {
-                if (features.contains(Feature.NO_ERROR)) {
-                    try {
-                        return Optional.fromNullable(converter.convert(value, input, capacitor));
-                    } catch (Exception e) {
+                try {
+                    return apply(converter, value, input);
+                } catch (Exception e) {
+                    if (features.contains(Feature.NO_ERROR)) {
                         return Optional.absent();
+                    } else {
+                        throw new ConversionException(e);
                     }
-                } else {
-                    return Optional.fromNullable(converter.convert(value, input, capacitor));
                 }
             }
         }
+    }
+
+    private <I, O> boolean supportsIdentity(TypeToken<I> input, TypeToken<O> output) {
+        if (features.contains(Feature.IDENTITY)) {
+            if (features.contains(Feature.SUPER_TYPING)) {
+                return output.isAssignableFrom(input);
+            } else {
+                return input.equals(output);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private <I, O> Optional<O> apply(Converter<I, O> converter, I value, TypeToken<I> input) {
+        return Optional.fromNullable(converter.convert(value, input, capacitor));
     }
 
     // guarded by TypeToken.equals(..)

@@ -152,7 +152,6 @@ public abstract class AbstractConverterFinderTest {
             Key.of(Number.class, String.class), converter
         ));
 
-
         final Converter<Integer, String> found = unit.search(Integer.class, String.class);
         Assert.assertNotNull("Expected to find 'Number -> String' when querying " +
             "for 'Integer -> String'", found);
