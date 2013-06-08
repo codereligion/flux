@@ -2,8 +2,6 @@ package org.whiskeysierra.flux.internal;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
@@ -16,55 +14,45 @@ import org.whiskeysierra.flux.InputBindingBuilder;
 import org.whiskeysierra.flux.Key;
 import org.whiskeysierra.flux.spi.Converter;
 
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.TypeVariable;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static com.google.common.base.Predicates.not;
+import static org.reflections.ReflectionUtils.withAnnotation;
+import static org.reflections.ReflectionUtils.withModifier;
+import static org.reflections.ReflectionUtils.withParametersCount;
 
 public final class BindingCollector implements Convert {
 
     private final Map<Key<?, ?>, Converter<?, ?>> mapping = Maps.newHashMap();
 
-    private final Predicate<AnnotatedElement> isAnnotated = ReflectionUtils.withAnnotation(Converts.class);
-    private final Predicate<Member> isPublic = ReflectionUtils.withModifier(Modifier.PUBLIC);
-    private final Predicate<Member> oneParameter = ReflectionUtils.withParametersCount(1);
-
-    private final Predicate<? super Method> notPublic = Predicates.not(isPublic);
-    private final Predicate<? super Method> tooManyParameters = Predicates.not(oneParameter);
-
-    private final Predicate<? super Method> valid;
-
-    public BindingCollector() {
-        final List<Predicate<? super Method>> predicates = Lists.newArrayListWithCapacity(3);
-
-        predicates.add(isAnnotated);
-        predicates.add(isPublic);
-        predicates.add(oneParameter);
-
-        this.valid = Predicates.and(predicates);
+    @SuppressWarnings("unchecked")
+    private Set<Method> getAllMethods(TypeToken<? extends Bundle> type,
+        Predicate<? super Method> first, Predicate<? super Method> second) {
+        return ReflectionUtils.getAllMethods(type.getRawType(), first, second);
     }
 
     @SuppressWarnings("unchecked")
-    private Set<Method> getAllMethods(TypeToken<? extends Bundle> type, Predicate<? super Method> predicate) {
-        return ReflectionUtils.getAllMethods(type.getRawType(), predicate);
+    private Set<Method> getAllMethods(TypeToken<? extends Bundle> type,
+        Predicate<? super Method> first, Predicate<? super Method> second, Predicate<? super Method> third) {
+        return ReflectionUtils.getAllMethods(type.getRawType(), first, second, third);
     }
 
     private void checkIllegalConvertsMethods(TypeToken<? extends Bundle> type) {
-        for (Method method : getAllMethods(type, Predicates.and(isAnnotated, notPublic))) {
+        for (Method method : getAllMethods(type, withAnnotation(Converts.class), not(withModifier(Modifier.PUBLIC)))) {
             throw new ConfigurationException(String.format("'%s' is not public", method));
         }
 
-        for (Method method : getAllMethods(type, Predicates.and(isAnnotated, tooManyParameters))) {
+        for (Method method : getAllMethods(type, withAnnotation(Converts.class), not(withParametersCount(1)))) {
             throw new ConfigurationException(String.format("'%s' has too many parameters", method));
         }
     }
 
     private Set<Method> findConvertsMethods(TypeToken<? extends Bundle> type) {
-        return getAllMethods(type, valid);
+        return getAllMethods(type, withAnnotation(Converts.class), withModifier(Modifier.PUBLIC), withParametersCount(1));
     }
 
     @Override
