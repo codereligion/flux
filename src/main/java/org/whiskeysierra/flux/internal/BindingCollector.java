@@ -3,7 +3,7 @@ package org.whiskeysierra.flux.internal;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.reflect.Invokable;
 import com.google.common.reflect.TypeToken;
@@ -21,6 +21,7 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.TypeVariable;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,16 +29,24 @@ public final class BindingCollector implements Convert {
 
     private final Map<Key<?, ?>, Converter<?, ?>> mapping = Maps.newHashMap();
 
-    private final Predicate<AnnotatedElement> annotated = ReflectionUtils.withAnnotation(Converts.class);
+    private final Predicate<AnnotatedElement> isAnnotated = ReflectionUtils.withAnnotation(Converts.class);
     private final Predicate<Member> isPublic = ReflectionUtils.withModifier(Modifier.PUBLIC);
     private final Predicate<Member> oneParameter = ReflectionUtils.withParametersCount(1);
 
     private final Predicate<? super Method> notPublic = Predicates.not(isPublic);
     private final Predicate<? super Method> tooManyParameters = Predicates.not(oneParameter);
 
-    private final Predicate<? super Method> valid = Predicates.and(ImmutableList.<Predicate<Member>>of(
-        annotated, isPublic, oneParameter
-    ));
+    private final Predicate<? super Method> valid;
+
+    public BindingCollector() {
+        final List<Predicate<? super Method>> predicates = Lists.newArrayListWithCapacity(3);
+
+        predicates.add(isAnnotated);
+        predicates.add(isPublic);
+        predicates.add(oneParameter);
+
+        this.valid = Predicates.and(predicates);
+    }
 
     @SuppressWarnings("unchecked")
     private Set<Method> getAllMethods(TypeToken<? extends Bundle> type, Predicate<? super Method> predicate) {
@@ -45,11 +54,11 @@ public final class BindingCollector implements Convert {
     }
 
     private void checkIllegalConvertsMethods(TypeToken<? extends Bundle> type) {
-        for (Method method : getAllMethods(type, Predicates.and(annotated, notPublic))) {
+        for (Method method : getAllMethods(type, Predicates.and(isAnnotated, notPublic))) {
             throw new ConfigurationException(String.format("'%s' is not public", method));
         }
 
-        for (Method method : getAllMethods(type, Predicates.and(annotated, tooManyParameters))) {
+        for (Method method : getAllMethods(type, Predicates.and(isAnnotated, tooManyParameters))) {
             throw new ConfigurationException(String.format("'%s' has too many parameters", method));
         }
     }
