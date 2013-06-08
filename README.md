@@ -1,4 +1,4 @@
-# ![Flux Capacitor](flux-capacitor-icon/flux_icon_100.png) Flux [![Build Status](https://travis-ci.org/whiskeysierra/flux.png?branch=master)](http://travis-ci.org/whiskeysierra/flux)
+# ![Flux Capacitor](icon.png) Flux [![Build Status](https://travis-ci.org/whiskeysierra/flux.png?branch=master)](http://travis-ci.org/whiskeysierra/flux)
 A Java type conversion framework.
 
 ## Quickstart

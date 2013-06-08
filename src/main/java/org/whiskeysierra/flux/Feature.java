@@ -16,6 +16,11 @@ public enum Feature {
     /**
      * A missing converter binding will result in a null value, rather than an exception.
      */
-    SILENT
+    SILENT,
+
+    /**
+     * A conversion error will result in a null value, rather than an exception.
+     */
+    NO_ERROR
 
 }

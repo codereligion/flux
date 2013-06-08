@@ -38,7 +38,15 @@ class DefaultConversion implements Conversion {
                             String.format("No converter found for '%s -> %s'", input, output));
                 }
             } else {
-                return Optional.fromNullable(converter.convert(value, input, capacitor));
+                if (features.contains(Feature.NO_ERROR)) {
+                    try {
+                        return Optional.fromNullable(converter.convert(value, input, capacitor));
+                    } catch (Exception e) {
+                        return Optional.absent();
+                    }
+                } else {
+                    return Optional.fromNullable(converter.convert(value, input, capacitor));
+                }
             }
         }
     }
