@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.whiskeysierra.flux.converters.base.BaseBundle;
 import org.whiskeysierra.flux.converters.primitives.StringToIntegerConverter;
 
-public class TransitiveSuperTypingSubTypingFeatureTest {
+public final class TransitiveSuperTypingSubTypingFeatureTest {
 
     private final Object value = new Object() {
         @Override

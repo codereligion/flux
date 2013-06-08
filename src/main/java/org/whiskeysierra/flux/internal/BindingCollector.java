@@ -35,7 +35,7 @@ public final class BindingCollector implements Convert {
     private final Predicate<? super Method> notPublic = Predicates.not(isPublic);
     private final Predicate<? super Method> tooManyParameters = Predicates.not(oneParameter);
 
-    private final Predicate<? super Method> valid = Predicates.and(ImmutableList.<Predicate<? super Method>>of(
+    private final Predicate<? super Method> valid = Predicates.and(ImmutableList.<Predicate<Member>>of(
         annotated, isPublic, oneParameter
     ));
 

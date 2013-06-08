@@ -3,19 +3,7 @@ package org.whiskeysierra.flux;
 import com.google.common.reflect.TypeToken;
 import org.junit.Assert;
 import org.junit.Test;
-import org.whiskeysierra.flux.converters.base.ObjectToStringConverter;
-import org.whiskeysierra.flux.converters.math.StringToBigDecimalConverter;
-import org.whiskeysierra.flux.converters.math.StringToBigIntegerConverter;
-import org.whiskeysierra.flux.converters.primitives.StringToBooleanConverter;
-import org.whiskeysierra.flux.converters.primitives.StringToByteConverter;
-import org.whiskeysierra.flux.converters.primitives.StringToCharacterConverter;
-import org.whiskeysierra.flux.converters.primitives.StringToDoubleConverter;
-import org.whiskeysierra.flux.converters.primitives.StringToFloatConverter;
-import org.whiskeysierra.flux.converters.primitives.StringToIntegerConverter;
-import org.whiskeysierra.flux.converters.primitives.StringToLongConverter;
-import org.whiskeysierra.flux.converters.primitives.StringToShortConverter;
-import org.whiskeysierra.flux.internal.ConverterFinder;
-import org.whiskeysierra.flux.internal.direct.DirectConverterFinder;
+import org.whiskeysierra.flux.converters.BuiltInBundle;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,26 +15,7 @@ public final class IntegrationTest {
     }
 
     private Capacitor unit(FeatureSet features) {
-        return Flux.createCapacitor(features, new Bundle() {
-
-            @Override
-            public void configure(Convert convert) {
-                convert.using(new StringToBooleanConverter());
-                convert.using(new StringToByteConverter());
-                convert.using(new StringToCharacterConverter());
-                convert.using(new StringToDoubleConverter());
-                convert.using(new StringToFloatConverter());
-                convert.using(new StringToIntegerConverter());
-                convert.using(new StringToLongConverter());
-                convert.using(new StringToShortConverter());
-
-                convert.using(new StringToBigDecimalConverter());
-                convert.using(new StringToBigIntegerConverter());
-
-                convert.using(new ObjectToStringConverter());
-            }
-
-        });
+        return Flux.createCapacitor(features, new BuiltInBundle());
     }
 
     @Test

@@ -2,6 +2,7 @@ package org.whiskeysierra.flux;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.whiskeysierra.flux.converters.base.BaseBundle;
 import org.whiskeysierra.flux.converters.base.ObjectToStringConverter;
 import org.whiskeysierra.flux.internal.ConverterFinder;
 import org.whiskeysierra.flux.internal.direct.DirectConverterFinder;
@@ -18,15 +19,7 @@ public final class DefaultConvertableTest {
 
     @Test
     public void singleBinding() {
-        final Capacitor capacitor = Flux.createCapacitor(Features.of(Feature.SILENT), new Bundle() {
-
-            @Override
-            public void configure(Convert convert) {
-                convert.using(new ObjectToStringConverter());
-            }
-
-        });
-
+        final Capacitor capacitor = Flux.createCapacitor(Features.of(Feature.SILENT), new BaseBundle());
         final Object value = new Object();
 
         Assert.assertNotNull(capacitor.convert(value).tryTo(String.class).orNull());

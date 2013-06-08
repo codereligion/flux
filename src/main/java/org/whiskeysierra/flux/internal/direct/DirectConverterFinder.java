@@ -2,6 +2,7 @@ package org.whiskeysierra.flux.internal.direct;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
+import com.google.common.primitives.Primitives;
 import com.google.common.reflect.TypeToken;
 import org.whiskeysierra.flux.Feature;
 import org.whiskeysierra.flux.FeatureSet;
@@ -21,22 +22,48 @@ public final class DirectConverterFinder extends AbstractConverterFinder {
 
         this.mapping.putAll(Preconditions.checkNotNull(map, "Map"));
 
+        if (features.contains(Feature.AUTOBOXING)) {
+            for (Map.Entry<Key<?, ?>, Converter<?, ?>> entry : map.entrySet()) {
+                final Key<?, ?> key = entry.getKey();
+                final Class<?> output = key.getOutput().getRawType();
+
+                if (Primitives.allPrimitiveTypes().contains(output)) {
+                    final Converter<?, ?> converter = entry.getValue();
+                    tryPut(key.getInput(), Primitives.wrap(output), converter);
+                }
+            }
+        }
+
+        if (features.contains(Feature.UNBOXING)) {
+            for (Map.Entry<Key<?, ?>, Converter<?, ?>> entry : map.entrySet()) {
+                final Key<?, ?> key = entry.getKey();
+                final Class<?> output = key.getOutput().getRawType();
+
+                if (Primitives.allWrapperTypes().contains(output)) {
+                    final Converter<?, ?> converter = entry.getValue();
+                    tryPut(key.getInput(), Primitives.unwrap(output), converter);
+                }
+            }
+        }
+
         if (features.contains(Feature.SUPER_TYPING)) {
             for (Map.Entry<Key<?, ?>, Converter<?, ?>> entry : map.entrySet()) {
                 final Key<?, ?> key = entry.getKey();
-                tryRegisterOutputSuperTypes(key, entry.getValue());
+
+                for (TypeToken<?> output : key.getOutput().getTypes()) {
+                    tryPut(key.getInput(), output, entry.getValue());
+                }
             }
         }
     }
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings("RV_RETURN_VALUE_OF_PUTIFABSENT_IGNORED")
-    private void tryRegisterOutputSuperTypes(Key<?, ?> key, Converter<? ,?> converter) {
-        final TypeToken<?> input = key.getInput();
-        final TypeToken<?> output = key.getOutput();
+    private void tryPut(TypeToken<?> input, Class<?> output, Converter<?, ?> converter) {
+        tryPut(input, TypeToken.of(output), converter);
+    }
 
-        for (TypeToken<?> type : output.getTypes()) {
-            mapping.putIfAbsent(Key.of(input, type), converter);
-        }
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings("RV_RETURN_VALUE_OF_PUTIFABSENT_IGNORED")
+    private void tryPut(TypeToken<?> input, TypeToken<?> output, Converter<?, ?> converter) {
+        mapping.putIfAbsent(Key.of(input, output), converter);
     }
 
     @SuppressWarnings("unchecked")

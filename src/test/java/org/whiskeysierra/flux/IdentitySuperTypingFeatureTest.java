@@ -4,7 +4,7 @@ package org.whiskeysierra.flux;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class IdentitySuperTypingFeatureTest {
+public final class IdentitySuperTypingFeatureTest {
 
     @Test
     public void testEnabled() {

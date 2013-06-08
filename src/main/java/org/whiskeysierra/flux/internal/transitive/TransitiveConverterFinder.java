@@ -2,6 +2,7 @@ package org.whiskeysierra.flux.internal.transitive;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
+import com.google.common.primitives.Primitives;
 import com.google.common.reflect.TypeToken;
 import edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
@@ -39,24 +40,51 @@ public final class TransitiveConverterFinder extends AbstractConverterFinder {
             final TypeToken<?> input = key.getInput();
             final TypeToken<?> output = key.getOutput();
             final Converter<?, ?> converter = entry.getValue();
-            graph.addEdge(Weighted.of(converter, NORMAL_WEIGHT), input, output, EdgeType.DIRECTED);
+            add(input, output, converter, NORMAL_WEIGHT);
+        }
+
+        if (features.contains(Feature.AUTOBOXING)) {
+            for (Map.Entry<Key<?, ?>, Converter<?, ?>> entry : map.entrySet()) {
+                final Key<?, ?> key = entry.getKey();
+                final Class<?> output = key.getOutput().getRawType();
+
+                if (Primitives.allPrimitiveTypes().contains(output)) {
+                    final Converter<?, ?> converter = entry.getValue();
+
+                    add(key.getInput(), Primitives.wrap(output), converter, IMPLICIT_WEIGHT);
+                }
+            }
+        }
+
+        if (features.contains(Feature.UNBOXING)) {
+            for (Map.Entry<Key<?, ?>, Converter<?, ?>> entry : map.entrySet()) {
+                final Key<?, ?> key = entry.getKey();
+                final Class<?> output = key.getOutput().getRawType();
+
+                if (Primitives.allWrapperTypes().contains(output)) {
+                    final Converter<?, ?> converter = entry.getValue();
+                    add(key.getInput(), Primitives.unwrap(output), converter, IMPLICIT_WEIGHT);
+                }
+            }
         }
 
         if (features.contains(Feature.SUPER_TYPING)) {
             for (Map.Entry<Key<?, ?>, Converter<?, ?>> entry : map.entrySet()) {
                 final Key<?, ?> key = entry.getKey();
-                tryRegisterOutputSuperTypes(key, entry.getValue());
+
+                for (TypeToken<?> output : key.getOutput().getTypes()) {
+                    add(key.getInput(), output, entry.getValue(), IMPLICIT_WEIGHT);
+                }
             }
         }
     }
 
-    private void tryRegisterOutputSuperTypes(Key<?, ?> key, Converter<?, ?> converter) {
-        final TypeToken<?> input = key.getInput();
-        final TypeToken<?> output = key.getOutput();
+    private void add(TypeToken<?> input, Class<?> output, Converter<?, ?> converter, int weight) {
+        add(input, TypeToken.of(output), converter, weight);
+    }
 
-        for (TypeToken<?> type : output.getTypes()) {
-            graph.addEdge(Weighted.of(converter, IMPLICIT_WEIGHT), input, type, EdgeType.DIRECTED);
-        }
+    private void add(TypeToken<?> input, TypeToken<?> output, Converter<?, ?> converter, int weight) {
+        graph.addEdge(Weighted.of(converter, weight), input, output, EdgeType.DIRECTED);
     }
 
     @Override

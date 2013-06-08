@@ -4,7 +4,7 @@ package org.whiskeysierra.flux;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class SilentFeatureTest {
+public final class SilentFeatureTest {
 
     @Test
     public void testEnabled() {

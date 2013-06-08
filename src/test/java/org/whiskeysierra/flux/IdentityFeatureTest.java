@@ -4,7 +4,7 @@ package org.whiskeysierra.flux;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class IdentityFeatureTest {
+public final class IdentityFeatureTest {
 
     @Test
     public void testEnabled() {
