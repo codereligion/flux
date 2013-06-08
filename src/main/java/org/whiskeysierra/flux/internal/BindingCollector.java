@@ -14,6 +14,8 @@ import org.whiskeysierra.flux.InputBindingBuilder;
 import org.whiskeysierra.flux.Key;
 import org.whiskeysierra.flux.spi.Converter;
 
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.TypeVariable;
@@ -29,6 +31,10 @@ public final class BindingCollector implements Convert {
 
     private final Map<Key<?, ?>, Converter<?, ?>> mapping = Maps.newHashMap();
 
+    private final Predicate<AnnotatedElement> isAnnotated = withAnnotation(Converts.class);
+    private final Predicate<Member> isPublic = withModifier(Modifier.PUBLIC);
+    private final Predicate<Member> oneParameter = withParametersCount(1);
+
     @SuppressWarnings("unchecked")
     private Set<Method> getAllMethods(TypeToken<? extends Bundle> type,
         Predicate<? super Method> first, Predicate<? super Method> second) {
@@ -42,17 +48,17 @@ public final class BindingCollector implements Convert {
     }
 
     private void checkIllegalConvertsMethods(TypeToken<? extends Bundle> type) {
-        for (Method method : getAllMethods(type, withAnnotation(Converts.class), not(withModifier(Modifier.PUBLIC)))) {
+        for (Method method : getAllMethods(type, isAnnotated, not(isPublic))) {
             throw new ConfigurationException(String.format("'%s' is not public", method));
         }
 
-        for (Method method : getAllMethods(type, withAnnotation(Converts.class), not(withParametersCount(1)))) {
+        for (Method method : getAllMethods(type, isAnnotated, not(oneParameter))) {
             throw new ConfigurationException(String.format("'%s' has too many parameters", method));
         }
     }
 
     private Set<Method> findConvertsMethods(TypeToken<? extends Bundle> type) {
-        return getAllMethods(type, withAnnotation(Converts.class), withModifier(Modifier.PUBLIC), withParametersCount(1));
+        return getAllMethods(type, isAnnotated, isPublic, oneParameter);
     }
 
     @Override
