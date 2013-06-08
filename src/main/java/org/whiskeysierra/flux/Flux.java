@@ -26,7 +26,7 @@ public final class Flux {
         final BindingCollector collector = new BindingCollector();
 
         for (Bundle bundle : bundles) {
-            bundle.configure(collector);
+            collector.install(bundle);
         }
 
         final Map<Key<?, ?>, Converter<?, ?>> mapping = collector.getMapping();

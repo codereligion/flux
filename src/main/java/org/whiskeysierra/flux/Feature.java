@@ -32,6 +32,13 @@ public enum Feature {
      */
     NO_ERROR,
 
-    MULTI
+    /**
+     *
+     */
+    MULTI,
+
+    AUTOBOXING,
+
+    AUTO_UNBOXING
 
 }

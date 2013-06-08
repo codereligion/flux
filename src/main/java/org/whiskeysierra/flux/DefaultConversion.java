@@ -2,6 +2,7 @@ package org.whiskeysierra.flux;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Throwables;
 import com.google.common.reflect.TypeToken;
 import org.whiskeysierra.flux.internal.ConverterFinder;
 import org.whiskeysierra.flux.spi.Converter;
@@ -44,6 +45,7 @@ class DefaultConversion implements Conversion {
                     if (features.contains(Feature.NO_ERROR)) {
                         return Optional.absent();
                     } else {
+                        Throwables.propagateIfInstanceOf(e, ConversionException.class);
                         throw new ConversionException(e);
                     }
                 }

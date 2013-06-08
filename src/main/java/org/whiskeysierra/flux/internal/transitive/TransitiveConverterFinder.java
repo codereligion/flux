@@ -19,6 +19,7 @@ import java.util.Map.Entry;
 
 public final class TransitiveConverterFinder extends AbstractConverterFinder {
 
+    // TODO make configurable?!
     private static final int NORMAL_WEIGHT = 1;
     private static final int IMPLICIT_WEIGHT = 3;
 
