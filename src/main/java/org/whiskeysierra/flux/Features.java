@@ -26,4 +26,5 @@ public final class Features {
         final ImmutableSet<Feature> set = Sets.immutableEnumSet(features);
         return new DefaultFeatureSet(set);
     }
+
 }

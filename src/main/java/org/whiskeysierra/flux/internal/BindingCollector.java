@@ -3,6 +3,7 @@ package org.whiskeysierra.flux.internal;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
+import org.whiskeysierra.flux.Bundle;
 import org.whiskeysierra.flux.Convert;
 import org.whiskeysierra.flux.InputBindingBuilder;
 import org.whiskeysierra.flux.Key;
@@ -14,6 +15,12 @@ import java.util.Map;
 public final class BindingCollector implements Convert {
 
     private final Map<Key<?, ?>, Converter<?, ?>> mapping = Maps.newHashMap();
+
+    @Override
+    public void install(Bundle bundle) {
+        Preconditions.checkNotNull(bundle, "Bundle");
+        bundle.configure(this);
+    }
 
     @Override
     public <I> InputBindingBuilder<I> from(Class<I> input) {

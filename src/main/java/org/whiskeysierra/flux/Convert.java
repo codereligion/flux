@@ -5,6 +5,8 @@ import org.whiskeysierra.flux.spi.Converter;
 
 public interface Convert {
 
+    void install(Bundle bundle);
+
     <I> InputBindingBuilder<I> from(Class<I> input);
 
     <I> InputBindingBuilder<I> from(TypeToken<I> input);

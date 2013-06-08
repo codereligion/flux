@@ -11,7 +11,9 @@ public enum Feature {
      */
     IDENTITY,
 
-    TRANSITIVE, /**
+    TRANSITIVE,
+
+    /**
      * A missing converter binding will result in a null value, rather than an exception.
      */
     SILENT

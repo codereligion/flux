@@ -29,7 +29,7 @@ public final class Flux {
             bundle.configure(collector);
         }
 
-        final Map<Key<?, ?>,Converter<?,?>> mapping = collector.getMapping();
+        final Map<Key<?, ?>, Converter<?, ?>> mapping = collector.getMapping();
 
         final ConverterFinder finder = createFinder(features, mapping);
         return new DefaultCapacitor(features, finder);
