@@ -3,21 +3,24 @@ A Java type conversion framework.
 
 ## Quickstart
 Creating the Capacitor:
-
+```java
     final Capacitor capacitor = Flux.createCapacitor(new PrimitivesBundle());
     final long value = capacitor.convert("12345").to(Long.class);
     // or
     final long value = capacitor.convert(null).tryTo(Long.class).or(0L);
     ...
+````
 
 ## Configuration
 
 ### Features
 When creating the Capacitor, you can pass in a FeatureSet, defining which features you want to enable:
 
+```java
     final FeatureSet features = Features.of(Feature.SILENT, Feature.TRANSITIVE);
     final Capacitor capacitor = Flux.createCapacitor(features);
     ...
+````
 
 
 ### Bundles
