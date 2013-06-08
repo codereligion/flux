@@ -28,10 +28,9 @@ public final class TransitiveConverterFinder extends AbstractConverterFinder {
     private final DijkstraShortestPath<TypeToken<?>, Weighted> dijkstra =
         new DijkstraShortestPath<TypeToken<?>, Weighted>(graph, Weighted.TRANSFORMER);
 
-    private final FeatureSet features;
-
     public TransitiveConverterFinder(FeatureSet features, Map<Key<?, ?>, Converter<?, ?>> map) {
-        this.features = Preconditions.checkNotNull(features, "Features");
+        super(features);
+
         Preconditions.checkNotNull(map, "Map");
 
         for (Entry<Key<?, ?>, Converter<?, ?>> entry : map.entrySet()) {
@@ -59,7 +58,8 @@ public final class TransitiveConverterFinder extends AbstractConverterFinder {
         }
     }
 
-    private <I, O> Converter<I, O> findPath(TypeToken<? super I> input, TypeToken<O> output) {
+    @Override
+    protected <I, O> Converter<I, O> find(TypeToken<? super I> input, TypeToken<O> output) {
         if (graph.containsVertex(input) && graph.containsVertex(output)) {
             final List<Weighted> path = dijkstra.getPath(input, output);
 
@@ -74,25 +74,6 @@ public final class TransitiveConverterFinder extends AbstractConverterFinder {
             }
         } else {
             return null;
-        }
-    }
-
-    @Override
-    public <I, O> Converter<I, O> search(TypeToken<I> input, TypeToken<O> output) {
-        Preconditions.checkNotNull(input, "Input");
-        Preconditions.checkNotNull(output, "Output");
-
-        if (features.contains(Feature.SUB_TYPING)) {
-            for (TypeToken<? super I> type : input.getTypes()) {
-                final Converter<I, O> converter = findPath(type, output);
-                if (converter != null) {
-                    return converter;
-                }
-            }
-
-            return null;
-        } else {
-            return findPath(input, output);
         }
     }
 

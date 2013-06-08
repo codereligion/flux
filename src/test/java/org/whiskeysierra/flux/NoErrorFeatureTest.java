@@ -30,7 +30,7 @@ public final class NoErrorFeatureTest extends FeatureTest {
 
         });
 
-        capacitor.convert("abc").to(Long.class);
+        capacitor.convert("abc").tryTo(Long.class).get();
     }
 
 }
