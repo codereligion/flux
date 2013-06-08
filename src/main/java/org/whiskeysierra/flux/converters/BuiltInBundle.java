@@ -1,0 +1,20 @@
+package org.whiskeysierra.flux.converters;
+
+import org.whiskeysierra.flux.Bundle;
+import org.whiskeysierra.flux.Convert;
+import org.whiskeysierra.flux.converters.base.BaseBundle;
+import org.whiskeysierra.flux.converters.collections.CollectionsBundle;
+import org.whiskeysierra.flux.converters.math.MathBundle;
+import org.whiskeysierra.flux.converters.primitives.PrimitivesBundle;
+
+public final class BuiltInBundle implements Bundle {
+
+    @Override
+    public void configure(Convert convert) {
+        convert.install(new BaseBundle());
+        convert.install(new CollectionsBundle());
+        convert.install(new MathBundle());
+        convert.install(new PrimitivesBundle());
+    }
+
+}
