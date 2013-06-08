@@ -2,8 +2,6 @@ language: java
 jdk:
   - oraclejdk7
   - openjdk6
-script: 
-  - build install
 notifications:
   email:
     on_failure: change
