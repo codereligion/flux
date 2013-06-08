@@ -1,6 +1,5 @@
 package org.whiskeysierra.flux;
 
-import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,8 +7,6 @@ import org.whiskeysierra.flux.converters.primitives.StringToBooleanConverter;
 import org.whiskeysierra.flux.spi.Converter;
 
 import java.lang.reflect.TypeVariable;
-import java.util.HashMap;
-import java.util.Map;
 
 public final class TypeTokenTest {
 

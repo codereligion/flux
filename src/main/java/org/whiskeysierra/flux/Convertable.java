@@ -17,7 +17,6 @@ public interface Convertable {
 
     <O> Optional<O> tryTo(Class<O> type);
 
-    // TODO define the difference between null-conversion result and an error during conversion
     <O> Optional<O> tryTo(TypeToken<O> type);
 
 }

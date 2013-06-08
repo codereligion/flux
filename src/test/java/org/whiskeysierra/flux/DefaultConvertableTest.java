@@ -3,9 +3,6 @@ package org.whiskeysierra.flux;
 import org.junit.Assert;
 import org.junit.Test;
 import org.whiskeysierra.flux.converters.base.BaseBundle;
-import org.whiskeysierra.flux.converters.base.ObjectToStringConverter;
-import org.whiskeysierra.flux.internal.ConverterFinder;
-import org.whiskeysierra.flux.internal.direct.DirectConverterFinder;
 
 public final class DefaultConvertableTest {
 

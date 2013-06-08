@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+// TODO model inheritence in the graph using cast-converters
 public final class TransitiveConverterFinder extends AbstractConverterFinder {
 
     // TODO make configurable?!
@@ -93,9 +94,6 @@ public final class TransitiveConverterFinder extends AbstractConverterFinder {
             final List<Weighted> path = dijkstra.getPath(input, output);
 
             switch (path.size()) {
-                case 0:
-                    // TODO check if this case even exists
-                    return null;
                 case 1:
                     return Iterables.getOnlyElement(path).getConverter();
                 default:

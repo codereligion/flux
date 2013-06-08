@@ -26,7 +26,6 @@ final class DefaultConvertable<I> extends AbstractConvertable {
     @Override
     public <O> Optional<O> tryTo(TypeToken<O> output) {
         Preconditions.checkNotNull(output, "Output");
-        // TODO delay mapping-search until someone calls this
         return conversion.run(input, type, output);
     }
 
