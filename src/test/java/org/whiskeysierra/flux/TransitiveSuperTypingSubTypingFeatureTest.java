@@ -3,7 +3,7 @@ package org.whiskeysierra.flux;
 import org.junit.Assert;
 import org.junit.Test;
 import org.whiskeysierra.flux.converters.base.BaseBundle;
-import org.whiskeysierra.flux.converters.primitives.StringToIntegerConverter;
+import org.whiskeysierra.flux.converters.wrappers.StringToIntegerConverter;
 
 public final class TransitiveSuperTypingSubTypingFeatureTest {
 

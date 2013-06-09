@@ -1,4 +1,4 @@
-package org.whiskeysierra.flux.converters.primitives;
+package org.whiskeysierra.flux.converters.wrappers;
 
 import com.google.common.base.Preconditions;
 import com.google.common.reflect.TypeToken;

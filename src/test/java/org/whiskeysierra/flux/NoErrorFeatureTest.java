@@ -2,7 +2,7 @@ package org.whiskeysierra.flux;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.whiskeysierra.flux.converters.primitives.StringToWrappersBundle;
+import org.whiskeysierra.flux.converters.wrappers.StringToWrappersBundle;
 
 public final class NoErrorFeatureTest {
 
