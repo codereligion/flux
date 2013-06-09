@@ -40,7 +40,7 @@ class DefaultConversion implements Conversion {
                 }
             } else {
                 try {
-                    return apply(converter, value, input);
+                    return Optional.fromNullable(converter.convert(value, input, capacitor));
                 } catch (Exception e) {
                     if (features.contains(Feature.NO_ERROR)) {
                         return Optional.absent();
@@ -63,10 +63,6 @@ class DefaultConversion implements Conversion {
         } else {
             return false;
         }
-    }
-
-    private <I, O> Optional<O> apply(Converter<I, O> converter, I value, TypeToken<I> input) {
-        return Optional.fromNullable(converter.convert(value, input, capacitor));
     }
 
     // guarded by TypeToken.equals(..)

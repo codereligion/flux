@@ -25,10 +25,15 @@ public final class DirectConverterFinder extends AbstractConverterFinder {
         if (features.contains(Feature.AUTOBOXING)) {
             for (Map.Entry<Key<?, ?>, Converter<?, ?>> entry : map.entrySet()) {
                 final Key<?, ?> key = entry.getKey();
+                final Class<?> input = key.getInput().getRawType();
                 final Class<?> output = key.getOutput().getRawType();
+                final Converter<?, ?> converter = entry.getValue();
+
+                if (Primitives.allWrapperTypes().contains(input)) {
+                    tryPut(Primitives.unwrap(input), key.getOutput(), converter);
+                }
 
                 if (Primitives.allPrimitiveTypes().contains(output)) {
-                    final Converter<?, ?> converter = entry.getValue();
                     tryPut(key.getInput(), Primitives.wrap(output), converter);
                 }
             }
@@ -55,6 +60,10 @@ public final class DirectConverterFinder extends AbstractConverterFinder {
                 }
             }
         }
+    }
+
+    private void tryPut(Class<?> input, TypeToken<?> output, Converter<?, ?> converter) {
+        tryPut(TypeToken.of(input), output, converter);
     }
 
     private void tryPut(TypeToken<?> input, Class<?> output, Converter<?, ?> converter) {

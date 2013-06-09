@@ -3,12 +3,12 @@ package org.whiskeysierra.flux;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.whiskeysierra.flux.converters.primitives.PrimitivesBundle;
+import org.whiskeysierra.flux.converters.primitives.StringToWrappersBundle;
 
 public final class UnboxingFeatureTest {
 
     private Capacitor createCapacitor(Feature... features) {
-        return Flux.createCapacitor(Features.of(features), new PrimitivesBundle());
+        return Flux.createCapacitor(Features.of(features), new StringToWrappersBundle());
     }
 
     @Test

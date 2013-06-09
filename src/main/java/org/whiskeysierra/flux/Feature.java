@@ -43,9 +43,10 @@ public enum Feature {
     GENERICS,
 
     /**
-     * Supports unboxing for conversion, i.e. finds converters for primitives when converting to wrapper types.
-     * E.g. {@code capacitor.convert("12345").to(Long.class)} also takes converters into account that convert
-     * into {@code long}.
+     * Supports unboxing for conversion, i.e. finds converters for primitive types when converting from or to
+     * wrapper types. E.g. {@code capacitor.convert("12345").to(Long.class)} also takes converters into account
+     * that convert into {@code long} while {@code capacitor.convert(12345L, long.class).to(String.class)}
+     * also utilizes converters converting from {@code Long}.
      * <br />
      * The term autoboxing in this context refers to the converter's result, i.e. the primitive result will
      * be autoboxed into its suitable wrapper type.
@@ -53,9 +54,10 @@ public enum Feature {
     AUTOBOXING,
 
     /**
-     * Supports autoboxing for conversions, i.e. finds converters for wrapper types when converting to primitives.
-     * E.g. {@code capacitor.convert("12345").to(long.class)} also takes converters into account that convert
-     * into {@link Long}.
+     * Supports autoboxing for conversions, i.e. finds converters for wrapper types when converting from or to
+     * primitives. E.g. {@code capacitor.convert("12345").to(long.class)} also takes converters into account
+     * that convert into {@link Long} while {@code capacitor.convert(12345L).to(String.class)}
+     * also utilizes converters converting from {@code long}.
      * <br />
      * The term unboxing in this context refers to the converter's result, i.e. the wrapped result will
      * be unboxed into its suitable primitive type.

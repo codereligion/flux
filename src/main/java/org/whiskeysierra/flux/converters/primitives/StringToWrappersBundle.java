@@ -3,7 +3,7 @@ package org.whiskeysierra.flux.converters.primitives;
 import org.whiskeysierra.flux.Bundle;
 import org.whiskeysierra.flux.Convert;
 
-public final class PrimitivesBundle implements Bundle {
+public final class StringToWrappersBundle implements Bundle {
 
     @Override
     public void configure(Convert convert) {

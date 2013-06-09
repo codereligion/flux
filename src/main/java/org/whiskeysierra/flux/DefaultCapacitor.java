@@ -18,28 +18,28 @@ public final class DefaultCapacitor implements Capacitor {
     }
 
     @Override
-    public <O> Convertable convert(@Nullable O input) {
-        if (input == null) {
+    public <O> Convertable convert(@Nullable O value) {
+        if (value == null) {
             // fairly useless, because it will only allow null-to-null conversions,
             // but let's do it anyways...
             return convert(null, Void.class);
         } else {
             @SuppressWarnings("unchecked")
-            final Class<Object> type = (Class<Object>) input.getClass();
-            return convert(input, type);
+            final Class<Object> type = (Class<Object>) value.getClass();
+            return convert(value, type);
         }
     }
 
     @Override
-    public <I> Convertable convert(@Nullable I input, Class<I> type) {
-        Preconditions.checkNotNull(type, "Type");
-        return convert(input, TypeToken.of(type));
+    public <I> Convertable convert(@Nullable I value, Class<I> input) {
+        Preconditions.checkNotNull(input, "Input");
+        return convert(value, TypeToken.of(input));
     }
 
     @Override
-    public <I> Convertable convert(@Nullable I value, TypeToken<I> type) {
-        Preconditions.checkNotNull(type, "Type");
-        return new DefaultConvertable<I>(value, type, conversion);
+    public <I> Convertable convert(@Nullable I value, TypeToken<I> input) {
+        Preconditions.checkNotNull(input, "Input");
+        return new DefaultConvertable<I>(value, input, conversion);
     }
 
 }

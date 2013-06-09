@@ -5,7 +5,7 @@ import org.whiskeysierra.flux.Convert;
 import org.whiskeysierra.flux.converters.base.BaseBundle;
 import org.whiskeysierra.flux.converters.collections.CollectionsBundle;
 import org.whiskeysierra.flux.converters.math.MathBundle;
-import org.whiskeysierra.flux.converters.primitives.PrimitivesBundle;
+import org.whiskeysierra.flux.converters.primitives.StringToWrappersBundle;
 
 public final class BuiltInBundle implements Bundle {
 
@@ -14,7 +14,7 @@ public final class BuiltInBundle implements Bundle {
         convert.install(new BaseBundle());
         convert.install(new CollectionsBundle());
         convert.install(new MathBundle());
-        convert.install(new PrimitivesBundle());
+        convert.install(new StringToWrappersBundle());
     }
 
 }

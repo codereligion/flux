@@ -47,11 +47,15 @@ public final class TransitiveConverterFinder extends AbstractConverterFinder {
         if (features.contains(Feature.AUTOBOXING)) {
             for (Map.Entry<Key<?, ?>, Converter<?, ?>> entry : map.entrySet()) {
                 final Key<?, ?> key = entry.getKey();
+                final Class<?> input = key.getInput().getRawType();
                 final Class<?> output = key.getOutput().getRawType();
+                final Converter<?, ?> converter = entry.getValue();
+
+                if (Primitives.allWrapperTypes().contains(input)) {
+                    add(Primitives.unwrap(input), key.getOutput(), converter, IMPLICIT_WEIGHT);
+                }
 
                 if (Primitives.allPrimitiveTypes().contains(output)) {
-                    final Converter<?, ?> converter = entry.getValue();
-
                     add(key.getInput(), Primitives.wrap(output), converter, IMPLICIT_WEIGHT);
                 }
             }
@@ -80,6 +84,10 @@ public final class TransitiveConverterFinder extends AbstractConverterFinder {
         }
     }
 
+    private void add(Class<?> input, TypeToken<?> output, Converter<?, ?> converter, int weight) {
+        add(TypeToken.of(input), output, converter, weight);
+    }
+
     private void add(TypeToken<?> input, Class<?> output, Converter<?, ?> converter, int weight) {
         add(input, TypeToken.of(output), converter, weight);
     }
@@ -94,6 +102,9 @@ public final class TransitiveConverterFinder extends AbstractConverterFinder {
             final List<Weighted> path = dijkstra.getPath(input, output);
 
             switch (path.size()) {
+                case 0:
+                    // both vertices exist in the graph, but no possible conversion exist
+                    return null;
                 case 1:
                     return Iterables.getOnlyElement(path).getConverter();
                 default:

@@ -8,25 +8,25 @@ import javax.annotation.Nullable;
 
 final class DefaultConvertable<I> extends AbstractConvertable {
 
-    private final I input;
-    private final TypeToken<I> type;
+    private final I value;
+    private final TypeToken<I> input;
     private final Conversion conversion;
 
-    public DefaultConvertable(@Nullable I input, TypeToken<I> type, Conversion conversion) {
-        this.input = input;
-        this.type = Preconditions.checkNotNull(type, "Type");
+    public DefaultConvertable(@Nullable I value, TypeToken<I> input, Conversion conversion) {
+        this.value = value;
+        this.input = Preconditions.checkNotNull(input, "Input");
         this.conversion = Preconditions.checkNotNull(conversion, "Conversion");
     }
 
     @Override
     public Object raw() {
-        return input;
+        return value;
     }
 
     @Override
     public <O> Optional<O> tryTo(TypeToken<O> output) {
         Preconditions.checkNotNull(output, "Output");
-        return conversion.run(input, type, output);
+        return conversion.run(value, input, output);
     }
 
 }
