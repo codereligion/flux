@@ -64,10 +64,15 @@ public final class TransitiveConverterFinder extends AbstractConverterFinder {
         if (features.contains(Feature.UNBOXING)) {
             for (Map.Entry<Key<?, ?>, Converter<?, ?>> entry : map.entrySet()) {
                 final Key<?, ?> key = entry.getKey();
+                final Class<?> input = key.getInput().getRawType();
                 final Class<?> output = key.getOutput().getRawType();
+                final Converter<?, ?> converter = entry.getValue();
+
+                if (Primitives.allPrimitiveTypes().contains(input)) {
+                    add(Primitives.wrap(input), key.getOutput(), converter, IMPLICIT_WEIGHT);
+                }
 
                 if (Primitives.allWrapperTypes().contains(output)) {
-                    final Converter<?, ?> converter = entry.getValue();
                     add(key.getInput(), Primitives.unwrap(output), converter, IMPLICIT_WEIGHT);
                 }
             }
@@ -93,7 +98,9 @@ public final class TransitiveConverterFinder extends AbstractConverterFinder {
     }
 
     private void add(TypeToken<?> input, TypeToken<?> output, Converter<?, ?> converter, int weight) {
-        graph.addEdge(Weighted.of(converter, weight), input, output, EdgeType.DIRECTED);
+        if (graph.findEdge(input, output) == null) {
+            graph.addEdge(Weighted.of(converter, weight), input, output, EdgeType.DIRECTED);
+        }
     }
 
     @Override
