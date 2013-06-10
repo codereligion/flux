@@ -11,7 +11,7 @@ public final class StringToBigIntegerConverter implements Converter<String, BigI
 
     @Override
     public <V extends String> BigInteger convert(V value, TypeToken<V> input, Capacitor capacitor) {
-        Preconditions.checkNotNull(value, "Input");
+        Preconditions.checkNotNull(value, "Value");
         return new BigInteger(value);
     }
 

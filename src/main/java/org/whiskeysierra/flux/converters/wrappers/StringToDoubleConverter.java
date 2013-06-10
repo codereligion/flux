@@ -9,7 +9,7 @@ public final class StringToDoubleConverter implements Converter<String, Double> 
 
     @Override
     public <V extends String> Double convert(V value, TypeToken<V> input, Capacitor capacitor) {
-        Preconditions.checkNotNull(value, "Input");
+        Preconditions.checkNotNull(value, "Value");
         return Double.valueOf(value);
     }
 

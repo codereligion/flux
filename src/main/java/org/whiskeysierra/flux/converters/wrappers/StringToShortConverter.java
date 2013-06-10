@@ -9,7 +9,7 @@ public final class StringToShortConverter implements Converter<String, Short> {
 
     @Override
     public <V extends String> Short convert(V value, TypeToken<V> input, Capacitor capacitor) {
-        Preconditions.checkNotNull(value, "Input");
+        Preconditions.checkNotNull(value, "Value");
         return Short.valueOf(value);
     }
 

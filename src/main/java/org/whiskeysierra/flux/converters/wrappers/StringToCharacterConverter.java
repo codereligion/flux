@@ -10,7 +10,7 @@ public final class StringToCharacterConverter implements Converter<String, Chara
 
     @Override
     public <V extends String> Character convert(V value, TypeToken<V> input, Capacitor capacitor) {
-        Preconditions.checkNotNull(value, "Input");
+        Preconditions.checkNotNull(value, "Value");
         if (value.length() == 1) {
             return value.charAt(0);
         } else {

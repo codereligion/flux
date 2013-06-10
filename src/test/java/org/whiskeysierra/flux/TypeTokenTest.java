@@ -1,12 +1,15 @@
 package org.whiskeysierra.flux;
 
+import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
 import org.junit.Assert;
 import org.junit.Test;
+import org.whiskeysierra.flux.Tokens.Wildcard;
 import org.whiskeysierra.flux.converters.wrappers.StringToBooleanConverter;
 import org.whiskeysierra.flux.spi.Converter;
 
 import java.lang.reflect.TypeVariable;
+import java.util.Map;
 
 public final class TypeTokenTest {
 
@@ -42,7 +45,19 @@ public final class TypeTokenTest {
 
     @Test
     public void getTypesInclusive() {
-        Assert.assertTrue(TypeToken.of(Integer.class).getTypes().contains(TypeToken.of(Integer.class)));
+        final TypeToken<Integer> type = TypeToken.of(Integer.class);
+        Assert.assertTrue(type.getTypes().contains(type));
+    }
+
+    @Test
+    public void wildcardIsAssignableFrom() {
+        final TypeToken<?> hash = TypeToken.of(Maps.newHashMap().getClass());
+        final TypeToken<?> tree = TypeToken.of(Maps.newTreeMap().getClass());
+
+        final TypeToken<Map<?, ?>> wildcard = Wildcard.MAP;
+
+        Assert.assertTrue(wildcard.isAssignableFrom(hash));
+        Assert.assertTrue(wildcard.isAssignableFrom(tree));
     }
 
 }

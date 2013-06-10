@@ -9,7 +9,7 @@ public final class StringToIntegerConverter implements Converter<String, Integer
 
     @Override
     public <V extends String> Integer convert(V value, TypeToken<V> input, Capacitor capacitor) {
-        Preconditions.checkNotNull(value, "Input");
+        Preconditions.checkNotNull(value, "Value");
         return Integer.valueOf(value);
     }
 

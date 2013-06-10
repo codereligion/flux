@@ -1,7 +1,7 @@
 package org.whiskeysierra.flux.converters.collect;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Iterables;
+import com.google.common.collect.Collections2;
 import com.google.common.reflect.TypeToken;
 import org.whiskeysierra.flux.Capacitor;
 import org.whiskeysierra.flux.Convertable;
@@ -9,20 +9,21 @@ import org.whiskeysierra.flux.spi.Converter;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.TypeVariable;
+import java.util.Collection;
 
-final class IterableToConvertableIterableConverter<T> implements Converter<Iterable<T>, Iterable<Convertable>> {
+final class CollectionToConvertableCollectionConverter<T> implements Converter<Collection<T>, Collection<Convertable>> {
 
     @Nullable
     @Override
-    public <V extends Iterable<T>> Iterable<Convertable> convert(V value, TypeToken<V> input, Capacitor capacitor) {
+    public <V extends Collection<T>> Collection<Convertable> convert(V value, TypeToken<V> input, Capacitor capacitor) {
         Preconditions.checkNotNull(value, "Value");
         final TypeToken<T> token = getTypeParameterType(input);
-        return Iterables.transform(value, new CapacitorFunction<T>(capacitor, token));
+        return Collections2.transform(value, new CapacitorFunction<T>(capacitor, token));
     }
 
-    private <V extends Iterable<T>> TypeToken<T> getTypeParameterType(TypeToken<V> type) {
-        final TypeVariable<Class<Iterable>>[] parameters = Iterable.class.getTypeParameters();
-        final TypeToken<? super V> supertype = type.getSupertype(Iterable.class);
+    private <V extends Collection<T>> TypeToken<T> getTypeParameterType(TypeToken<V> type) {
+        final TypeVariable<Class<Collection>>[] parameters = Collection.class.getTypeParameters();
+        final TypeToken<? super V> supertype = type.getSupertype(Collection.class);
         return cast(supertype.resolveType(parameters[0]));
     }
 

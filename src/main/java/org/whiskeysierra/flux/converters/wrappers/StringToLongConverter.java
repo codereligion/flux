@@ -9,7 +9,7 @@ public final class StringToLongConverter implements Converter<String, Long> {
 
     @Override
     public <V extends String> Long convert(V value, TypeToken<V> input, Capacitor capacitor) {
-        Preconditions.checkNotNull(value, "Input");
+        Preconditions.checkNotNull(value, "Value");
         return Long.valueOf(value);
     }
 

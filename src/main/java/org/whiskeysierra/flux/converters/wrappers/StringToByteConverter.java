@@ -9,7 +9,7 @@ public final class StringToByteConverter implements Converter<String, Byte> {
 
     @Override
     public <V extends String> Byte convert(V value, TypeToken<V> input, Capacitor capacitor) {
-        Preconditions.checkNotNull(value, "Input");
+        Preconditions.checkNotNull(value, "Value");
         return Byte.valueOf(value);
     }
 

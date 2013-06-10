@@ -11,7 +11,7 @@ public final class StringToBigDecimalConverter implements Converter<String, BigD
 
     @Override
     public <V extends String> BigDecimal convert(V value, TypeToken<V> input, Capacitor capacitor) {
-        Preconditions.checkNotNull(value, "Input");
+        Preconditions.checkNotNull(value, "Value");
         return new BigDecimal(value);
     }
 
