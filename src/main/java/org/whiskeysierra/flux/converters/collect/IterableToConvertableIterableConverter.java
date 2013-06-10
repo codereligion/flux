@@ -1,4 +1,4 @@
-package org.whiskeysierra.flux.converters.collections;
+package org.whiskeysierra.flux.converters.collect;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
@@ -15,7 +15,7 @@ final class IterableToConvertableIterableConverter<T> implements Converter<Itera
     @Nullable
     @Override
     public <V extends Iterable<T>> Iterable<Convertable> convert(V input, TypeToken<V> type,
-            final Capacitor capacitor) {
+        TypeToken<? extends Iterable<Convertable>> output, final Capacitor capacitor) {
 
         Preconditions.checkNotNull(input, "Input");
         final TypeToken<T> token = getTypeParameterType(type);

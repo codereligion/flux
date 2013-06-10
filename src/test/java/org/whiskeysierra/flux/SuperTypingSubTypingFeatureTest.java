@@ -14,7 +14,8 @@ public final class SuperTypingSubTypingFeatureTest {
                 public void configure(Convert convert) {
                     convert.using(new Converter<Object, Integer>() {
                         @Override
-                        public <V extends Object> Integer convert(V input, TypeToken<V> type, Capacitor capacitor) {
+                        public <V extends Object> Integer convert(V input, TypeToken<V> type, TypeToken<? extends Integer> output,
+                            Capacitor capacitor) {
                             return 17;
                         }
                     });

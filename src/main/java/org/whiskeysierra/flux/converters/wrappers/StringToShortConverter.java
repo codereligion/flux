@@ -8,7 +8,7 @@ import org.whiskeysierra.flux.spi.Converter;
 public final class StringToShortConverter implements Converter<String, Short> {
 
     @Override
-    public <V extends String> Short convert(V input, TypeToken<V> type, Capacitor capacitor) {
+    public <V extends String> Short convert(V input, TypeToken<V> type, TypeToken<? extends Short> output, Capacitor capacitor) {
         Preconditions.checkNotNull(input, "Input");
         return Short.valueOf(input);
     }

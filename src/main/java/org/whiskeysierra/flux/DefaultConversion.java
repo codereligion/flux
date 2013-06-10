@@ -40,7 +40,7 @@ class DefaultConversion implements Conversion {
                 }
             } else {
                 try {
-                    return Optional.fromNullable(converter.convert(value, input, capacitor));
+                    return Optional.fromNullable(converter.convert(value, input, output, capacitor));
                 } catch (Exception e) {
                     if (features.contains(Feature.NO_ERROR)) {
                         return Optional.absent();

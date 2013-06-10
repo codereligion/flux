@@ -8,7 +8,7 @@ import org.whiskeysierra.flux.spi.Converter;
 public final class StringToDoubleConverter implements Converter<String, Double> {
 
     @Override
-    public <V extends String> Double convert(V input, TypeToken<V> type, Capacitor capacitor) {
+    public <V extends String> Double convert(V input, TypeToken<V> type, TypeToken<? extends Double> output, Capacitor capacitor) {
         Preconditions.checkNotNull(input, "Input");
         return Double.valueOf(input);
     }

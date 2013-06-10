@@ -1,9 +1,9 @@
-package org.whiskeysierra.flux.converters.collections;
+package org.whiskeysierra.flux.converters.collect;
 
 import org.whiskeysierra.flux.Bundle;
 import org.whiskeysierra.flux.Convert;
 
-public final class CollectionsBundle implements Bundle {
+public final class CollectBundle implements Bundle {
 
     @Override
     public void configure(Convert convert) {

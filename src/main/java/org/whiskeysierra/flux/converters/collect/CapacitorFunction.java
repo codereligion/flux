@@ -1,4 +1,4 @@
-package org.whiskeysierra.flux.converters.collections;
+package org.whiskeysierra.flux.converters.collect;
 
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;

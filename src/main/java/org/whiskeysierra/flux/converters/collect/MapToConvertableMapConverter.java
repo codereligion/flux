@@ -1,4 +1,4 @@
-package org.whiskeysierra.flux.converters.collections;
+package org.whiskeysierra.flux.converters.collect;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
@@ -15,7 +15,8 @@ public final class MapToConvertableMapConverter<K, T> implements Converter<Map<K
 
     @Nullable
     @Override
-    public <V extends Map<K, T>> Map<K, Convertable> convert(V input, TypeToken<V> type, final Capacitor capacitor) {
+    public <V extends Map<K, T>> Map<K, Convertable> convert(V input, TypeToken<V> type,
+        TypeToken<? extends Map<K, Convertable>> output, final Capacitor capacitor) {
         Preconditions.checkNotNull(input, "Input");
         final TypeToken<T> token = getValueParameterType(type);
         final CapacitorFunction<T> function = new CapacitorFunction<T>(capacitor, token);
