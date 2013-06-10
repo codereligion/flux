@@ -24,9 +24,9 @@ public final class Rss20StringToDateConverter implements Converter<String, Date>
 
     @Nullable
     @Override
-    public <V extends String> Date convert(V input, TypeToken<V> type, TypeToken<? extends Date> output, Capacitor capacitor) {
+    public <V extends String> Date convert(V value, TypeToken<V> input, Capacitor capacitor) {
         try {
-            return format.get().parse(input);
+            return format.get().parse(value);
         } catch (ParseException e) {
             throw new ConversionException(e);
         }

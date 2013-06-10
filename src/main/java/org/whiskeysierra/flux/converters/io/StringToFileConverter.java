@@ -11,8 +11,8 @@ public final class StringToFileConverter implements Converter<String, File> {
 
     @Nullable
     @Override
-    public <V extends String> File convert(V input, TypeToken<V> type, TypeToken<? extends File> output, Capacitor capacitor) {
-        return new File(input);
+    public <V extends String> File convert(V value, TypeToken<V> input, Capacitor capacitor) {
+        return new File(value);
     }
 
 }

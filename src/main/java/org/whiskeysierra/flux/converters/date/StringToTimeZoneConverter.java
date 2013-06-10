@@ -11,9 +11,8 @@ public final class StringToTimeZoneConverter implements Converter<String, TimeZo
 
     @Nullable
     @Override
-    public <V extends String> TimeZone convert(V input, TypeToken<V> type, TypeToken<? extends TimeZone> output,
-        Capacitor capacitor) {
-        return TimeZone.getTimeZone(input);
+    public <V extends String> TimeZone convert(V value, TypeToken<V> input, Capacitor capacitor) {
+        return TimeZone.getTimeZone(value);
     }
 
 }

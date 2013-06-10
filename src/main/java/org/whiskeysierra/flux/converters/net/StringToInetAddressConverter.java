@@ -1,6 +1,6 @@
 package org.whiskeysierra.flux.converters.net;
 
-import com.google.common.base.Joiner;
+import com.google.common.net.InetAddresses;
 import com.google.common.reflect.TypeToken;
 import org.whiskeysierra.flux.Capacitor;
 import org.whiskeysierra.flux.ConversionException;
@@ -9,21 +9,27 @@ import org.whiskeysierra.flux.spi.Converter;
 import javax.annotation.Nullable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Collections;
 
 public final class StringToInetAddressConverter implements Converter<String, InetAddress> {
 
-    // "0.0.0.0"
-    private final String anyLocal = Joiner.on('.').join(Collections.nCopies(4, "0"));
-
     @Nullable
     @Override
-    public <V extends String> InetAddress convert(V input, TypeToken<V> type, TypeToken<? extends InetAddress> output,
-        Capacitor capacitor) {
-        try {
-            return "*".equals(input) ? InetAddress.getByName(anyLocal) : InetAddress.getByName(input);
-        } catch (UnknownHostException e) {
-            throw new ConversionException(e);
+    public <V extends String> InetAddress convert(V value, TypeToken<V> input, Capacitor capacitor) {
+        if (InetAddresses.isInetAddress(value)) {
+            // suppresses dns lookups for ip-based addresses
+            return InetAddresses.forString(value);
+        } else if ("*".equals(value)) {
+
+            @SuppressWarnings("PMD.AvoidUsingHardCodedIP")
+            final String anyLocal = "0.0.0.0";
+
+            return InetAddresses.forString(anyLocal);
+        } else {
+            try {
+                return InetAddress.getByName(value);
+            } catch (UnknownHostException e) {
+                throw new ConversionException(String.format("'%s' is no valid InetAddress", value));
+            }
         }
     }
 

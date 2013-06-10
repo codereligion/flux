@@ -15,12 +15,12 @@ public final class MapToConvertableMapConverter<K, T> implements Converter<Map<K
 
     @Nullable
     @Override
-    public <V extends Map<K, T>> Map<K, Convertable> convert(V input, TypeToken<V> type,
-        TypeToken<? extends Map<K, Convertable>> output, final Capacitor capacitor) {
-        Preconditions.checkNotNull(input, "Input");
-        final TypeToken<T> token = getValueParameterType(type);
+    public <V extends Map<K, T>> Map<K, Convertable> convert(V value, TypeToken<V> input,
+        final Capacitor capacitor) {
+        Preconditions.checkNotNull(value, "Input");
+        final TypeToken<T> token = getValueParameterType(input);
         final CapacitorFunction<T> function = new CapacitorFunction<T>(capacitor, token);
-        return new ConvertableMap<K>(Maps.transformValues(input, function), capacitor);
+        return new ConvertableMap<K>(Maps.transformValues(value, function), capacitor);
     }
 
     private <V extends Map<K, T>> TypeToken<T> getValueParameterType(TypeToken<V> type) {

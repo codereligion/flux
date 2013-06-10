@@ -10,10 +10,9 @@ import java.math.BigInteger;
 public final class StringToBigIntegerConverter implements Converter<String, BigInteger> {
 
     @Override
-    public <V extends String> BigInteger convert(V input, TypeToken<V> type, TypeToken<? extends BigInteger> output,
-        Capacitor capacitor) {
-        Preconditions.checkNotNull(input, "Input");
-        return new BigInteger(input);
+    public <V extends String> BigInteger convert(V value, TypeToken<V> input, Capacitor capacitor) {
+        Preconditions.checkNotNull(value, "Input");
+        return new BigInteger(value);
     }
 
 }

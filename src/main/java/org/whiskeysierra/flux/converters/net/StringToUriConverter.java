@@ -9,13 +9,13 @@ import javax.annotation.Nullable;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public final class StringToUriConverter implements Converter<String, URI> {
+public final class StringToURIConverter implements Converter<String, URI> {
 
     @Nullable
     @Override
-    public <V extends String> URI convert(V input, TypeToken<V> type, TypeToken<? extends URI> output, Capacitor capacitor) {
+    public <V extends String> URI convert(V value, TypeToken<V> input, Capacitor capacitor) {
         try {
-            return new URI(input);
+            return new URI(value);
         } catch (URISyntaxException e) {
             throw new ConversionException(e);
         }

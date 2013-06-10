@@ -10,13 +10,13 @@ import javax.annotation.Nullable;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public final class StringToUrlConverter implements Converter<String, URL> {
+public final class StringToURLConverter implements Converter<String, URL> {
 
     private static final String CLASSPATH_PREFIX = "classpath:";
 
     @Nullable
     @Override
-    public <V extends String> URL convert(V value, TypeToken<V> type, TypeToken<? extends URL> output, Capacitor capacitor) {
+    public <V extends String> URL convert(V value, TypeToken<V> input, Capacitor capacitor) {
         if (value.startsWith(CLASSPATH_PREFIX)) {
             final ClassLoader loader = getClassLoader();
             final URL url = loader.getResource(value.substring(CLASSPATH_PREFIX.length()));

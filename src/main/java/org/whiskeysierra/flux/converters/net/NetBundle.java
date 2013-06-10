@@ -9,8 +9,8 @@ public final class NetBundle implements Bundle {
     public void configure(Convert convert) {
         convert.using(new StringToInetAddressConverter());
         convert.using(new StringToInetSocketAddressConverter());
-        convert.using(new StringToUriConverter());
-        convert.using(new StringToUrlConverter());
+        convert.using(new StringToURIConverter());
+        convert.using(new StringToURLConverter());
     }
 
 }

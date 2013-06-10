@@ -123,8 +123,7 @@ public abstract class AbstractConverterFinderTest {
 
             @Nullable
             @Override
-            public <V extends String> List<String> convert(@Nullable V input, TypeToken<V> type,
-                TypeToken<? extends List<String>> output, Capacitor capacitor) {
+            public <V extends String> List<String> convert(@Nullable V value, TypeToken<V> input, Capacitor capacitor) {
                 throw new UnsupportedOperationException();
             }
 

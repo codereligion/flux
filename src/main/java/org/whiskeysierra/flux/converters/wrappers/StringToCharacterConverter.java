@@ -9,13 +9,12 @@ import org.whiskeysierra.flux.spi.Converter;
 public final class StringToCharacterConverter implements Converter<String, Character> {
 
     @Override
-    public <V extends String> Character convert(V input, TypeToken<V> type, TypeToken<? extends Character> output,
-        Capacitor capacitor) {
-        Preconditions.checkNotNull(input, "Input");
-        if (input.length() == 1) {
-            return input.charAt(0);
+    public <V extends String> Character convert(V value, TypeToken<V> input, Capacitor capacitor) {
+        Preconditions.checkNotNull(value, "Input");
+        if (value.length() == 1) {
+            return value.charAt(0);
         } else {
-            throw new ConversionException(String.format("'%s' can't be converted into a char", input));
+            throw new ConversionException(String.format("'%s' can't be converted into a char", value));
         }
     }
 

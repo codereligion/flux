@@ -33,7 +33,7 @@ final class CompoundConverter<I, O> implements Converter<I, O> {
 
     @Nullable
     @Override
-    public <V extends I> O convert(V value, TypeToken<V> input, TypeToken<? extends O> output, Capacitor capacitor) {
+    public <V extends I> O convert(V value, TypeToken<V> input, Capacitor capacitor) {
         return convert(value, capacitor);
     }
 
@@ -42,10 +42,9 @@ final class CompoundConverter<I, O> implements Converter<I, O> {
 
         for (Weighted weighted : converters) {
             final TypeToken<Object> input = cast(graph.getSource(weighted));
-            final TypeToken<Object> output = cast(graph.getDest(weighted));
             final Converter<Object, Object> converter = weighted.getConverter();
 
-            v = converter.convert(v, input, output, capacitor);
+            v = converter.convert(v, input, capacitor);
         }
 
         return cast(v);

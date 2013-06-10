@@ -14,12 +14,12 @@ final class IterableToConvertableIterableConverter<T> implements Converter<Itera
 
     @Nullable
     @Override
-    public <V extends Iterable<T>> Iterable<Convertable> convert(V input, TypeToken<V> type,
-        TypeToken<? extends Iterable<Convertable>> output, final Capacitor capacitor) {
+    public <V extends Iterable<T>> Iterable<Convertable> convert(V value, TypeToken<V> input,
+        final Capacitor capacitor) {
 
-        Preconditions.checkNotNull(input, "Input");
-        final TypeToken<T> token = getTypeParameterType(type);
-        return Iterables.transform(input, new CapacitorFunction<T>(capacitor, token));
+        Preconditions.checkNotNull(value, "Input");
+        final TypeToken<T> token = getTypeParameterType(input);
+        return Iterables.transform(value, new CapacitorFunction<T>(capacitor, token));
     }
 
     private <V extends Iterable<T>> TypeToken<T> getTypeParameterType(TypeToken<V> type) {

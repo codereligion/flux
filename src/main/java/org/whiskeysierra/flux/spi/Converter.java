@@ -8,6 +8,6 @@ import javax.annotation.Nullable;
 public interface Converter<I, O> {
 
     @Nullable
-    <V extends I> O convert(V input, TypeToken<V> type, TypeToken<? extends O> output, Capacitor capacitor);
+    <V extends I> O convert(V value, TypeToken<V> input, Capacitor capacitor);
 
 }

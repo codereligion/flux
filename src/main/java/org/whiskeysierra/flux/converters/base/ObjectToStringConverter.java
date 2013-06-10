@@ -9,9 +9,8 @@ import javax.annotation.Nullable;
 public final class ObjectToStringConverter implements Converter<Object, String> {
 
     @Override
-    public <V extends Object> String convert(@Nullable V input, TypeToken<V> type, TypeToken<? extends String> output,
-        Capacitor capacitor) {
-        return String.valueOf(input);
+    public <V extends Object> String convert(@Nullable V value, TypeToken<V> input, Capacitor capacitor) {
+        return String.valueOf(value);
     }
 
 }

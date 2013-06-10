@@ -11,9 +11,8 @@ public final class StringToPatternConverter implements Converter<String, Pattern
 
     @Nullable
     @Override
-    public <V extends String> Pattern convert(V input, TypeToken<V> type, TypeToken<? extends Pattern> output,
-        Capacitor capacitor) {
-        return Pattern.compile(input);
+    public <V extends String> Pattern convert(V value, TypeToken<V> input, Capacitor capacitor) {
+        return Pattern.compile(value);
     }
 
 }

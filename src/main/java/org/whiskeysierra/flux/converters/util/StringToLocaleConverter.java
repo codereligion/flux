@@ -17,9 +17,9 @@ public final class StringToLocaleConverter implements Converter<String, Locale> 
 
     @Nullable
     @Override
-    public <V extends String> Locale convert(V input, TypeToken<V> type, TypeToken<? extends Locale> output, Capacitor capacitor) {
-        final Matcher matcher = pattern.matcher(input);
-        Preconditions.checkArgument(matcher.matches(), "%s does not match %s", input, pattern);
+    public <V extends String> Locale convert(V value, TypeToken<V> input, Capacitor capacitor) {
+        final Matcher matcher = pattern.matcher(value);
+        Preconditions.checkArgument(matcher.matches(), "%s does not match %s", value, pattern);
         final String language = Objects.firstNonNull(matcher.group(1), "");
         final String country = Objects.firstNonNull(matcher.group(2), "");
         final String variant = Objects.firstNonNull(matcher.group(3), "");

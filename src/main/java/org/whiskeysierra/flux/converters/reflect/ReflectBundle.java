@@ -9,6 +9,7 @@ public final class ReflectBundle implements Bundle {
     public void configure(Convert convert) {
         convert.using(new StringToClassConverter());
         convert.from(String.class).to(Enum.class).using(new StringToEnumConverter());
+        convert.using(new StringToTypeTokenConverter());
     }
 
 }

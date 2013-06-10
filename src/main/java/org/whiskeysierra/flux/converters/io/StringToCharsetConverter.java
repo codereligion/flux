@@ -11,9 +11,8 @@ public final class StringToCharsetConverter implements Converter<String, Charset
 
     @Nullable
     @Override
-    public <V extends String> Charset convert(V input, TypeToken<V> type, TypeToken<? extends Charset> output,
-        Capacitor capacitor) {
-        return Charset.forName(input);
+    public <V extends String> Charset convert(V value, TypeToken<V> input, Capacitor capacitor) {
+        return Charset.forName(value);
     }
 
 }

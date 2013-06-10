@@ -19,10 +19,9 @@ public final class StringToInetSocketAddressConverter implements Converter<Strin
 
     @Nullable
     @Override
-    public <V extends String> InetSocketAddress convert(V input, TypeToken<V> type, TypeToken<? extends InetSocketAddress> output,
-        Capacitor capacitor) {
-        final Matcher matcher = pattern.matcher(input);
-        Preconditions.checkArgument(matcher.matches(), "%s does not match %s", input, pattern);
+    public <V extends String> InetSocketAddress convert(V value, TypeToken<V> input, Capacitor capacitor) {
+        final Matcher matcher = pattern.matcher(value);
+        Preconditions.checkArgument(matcher.matches(), "%s does not match %s", value, pattern);
         final InetAddress host = capacitor.convert(matcher.group(1)).to(InetAddress.class);
         final int port = Integer.parseInt(matcher.group(2));
         return new InetSocketAddress(host, port);

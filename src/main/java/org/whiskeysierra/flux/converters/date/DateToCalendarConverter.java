@@ -12,10 +12,9 @@ public final class DateToCalendarConverter implements Converter<Date, Calendar> 
 
     @Nullable
     @Override
-    public <V extends Date> Calendar convert(V input, TypeToken<V> type, TypeToken<? extends Calendar> output,
-        Capacitor capacitor) {
+    public <V extends Date> Calendar convert(V value, TypeToken<V> input, Capacitor capacitor) {
         final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(input);
+        calendar.setTime(value);
         return calendar;
     }
 

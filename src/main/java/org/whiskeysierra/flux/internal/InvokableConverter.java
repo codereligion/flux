@@ -23,9 +23,9 @@ final class InvokableConverter implements Converter<Object, Object> {
 
     @Nullable
     @Override
-    public <V extends Object> Object convert(V input, TypeToken<V> type, TypeToken<?> output, Capacitor capacitor) {
+    public <V extends Object> Object convert(V value, TypeToken<V> input, Capacitor capacitor) {
         try {
-            return invokable.invoke(bundle, input);
+            return invokable.invoke(bundle, value);
         } catch (InvocationTargetException e) {
             throw new ConversionException(e);
         } catch (IllegalAccessException e) {

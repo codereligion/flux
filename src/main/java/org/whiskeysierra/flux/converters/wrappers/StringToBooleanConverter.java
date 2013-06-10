@@ -8,10 +8,9 @@ import org.whiskeysierra.flux.spi.Converter;
 public final class StringToBooleanConverter implements Converter<String, Boolean> {
 
     @Override
-    public <V extends String> Boolean convert(V input, TypeToken<V> type, TypeToken<? extends Boolean> output,
-        Capacitor capacitor) {
-        Preconditions.checkNotNull(input, "Input");
-        return Boolean.valueOf(input);
+    public <V extends String> Boolean convert(V value, TypeToken<V> input, Capacitor capacitor) {
+        Preconditions.checkNotNull(value, "Input");
+        return Boolean.valueOf(value);
     }
 
 }

@@ -11,9 +11,8 @@ public final class StringToSimpleDateFormatConverter implements Converter<String
 
     @Nullable
     @Override
-    public <V extends String> SimpleDateFormat convert(V input, TypeToken<V> type, TypeToken<? extends SimpleDateFormat> output,
-        Capacitor capacitor) {
-        return new SimpleDateFormat(input);
+    public <V extends String> SimpleDateFormat convert(V value, TypeToken<V> input, Capacitor capacitor) {
+        return new SimpleDateFormat(value);
     }
 
 }

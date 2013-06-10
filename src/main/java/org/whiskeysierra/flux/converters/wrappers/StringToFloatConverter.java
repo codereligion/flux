@@ -8,9 +8,9 @@ import org.whiskeysierra.flux.spi.Converter;
 public final class StringToFloatConverter implements Converter<String, Float> {
 
     @Override
-    public <V extends String> Float convert(V input, TypeToken<V> type, TypeToken<? extends Float> output, Capacitor capacitor) {
-        Preconditions.checkNotNull(input, "Input");
-        return Float.valueOf(input);
+    public <V extends String> Float convert(V value, TypeToken<V> input, Capacitor capacitor) {
+        Preconditions.checkNotNull(value, "Input");
+        return Float.valueOf(value);
     }
 
 }

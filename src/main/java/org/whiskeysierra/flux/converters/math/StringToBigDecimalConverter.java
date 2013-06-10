@@ -10,10 +10,9 @@ import java.math.BigDecimal;
 public final class StringToBigDecimalConverter implements Converter<String, BigDecimal> {
 
     @Override
-    public <V extends String> BigDecimal convert(V input, TypeToken<V> type, TypeToken<? extends BigDecimal> output,
-        Capacitor capacitor) {
-        Preconditions.checkNotNull(input, "Input");
-        return new BigDecimal(input);
+    public <V extends String> BigDecimal convert(V value, TypeToken<V> input, Capacitor capacitor) {
+        Preconditions.checkNotNull(value, "Input");
+        return new BigDecimal(value);
     }
 
 }
