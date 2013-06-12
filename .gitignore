@@ -35,5 +35,6 @@ project.xml
 release.properties
 pom.xml.releaseBackup
 
+/reports
 /target
 
