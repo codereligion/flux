@@ -35,6 +35,9 @@ project.xml
 release.properties
 pom.xml.releaseBackup
 
+# gradle
+/.gradle
+
 /build
 /reports
 /target
