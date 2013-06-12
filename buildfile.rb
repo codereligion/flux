@@ -11,29 +11,32 @@ repositories.remote << 'http://repo1.maven.org/maven2'
 
 desc 'Flux Capacitor'
 define 'flux' do
-  project.group = 'org.whiskeysierra'
-  project.version = '0.1-SNAPSHOT'
+    project.group = 'org.whiskeysierra'
+    project.version = '0.1-SNAPSHOT'
 
-  compile.with transitive('com.google.guava:guava:jar:14.0.1'),
-      transitive('com.google.code.findbugs:annotations:jar:1.3.9'),
-      transitive('com.google.code.findbugs:jsr305:jar:1.3.9'),
-      transitive('org.reflections:reflections:jar:0.9.9-RC1'),
-      transitive('net.sf.jung:jung-api:jar:2.0.1'),
-      transitive('net.sf.jung:jung-graph-impl:jar:2.0.1'),
-      transitive('net.sf.jung:jung-algorithms:jar:2.0.1')
+    compile.options.source = '1.6'
+    compile.options.target = '1.6'
 
-  test.with transitive('org.easymock:easymock:jar:3.1'),
-      transitive('org.hamcrest:hamcrest-core:jar:1.3')
+    compile.with transitive('com.google.guava:guava:jar:14.0.1'),
+        transitive('com.google.code.findbugs:annotations:jar:1.3.9'),
+        transitive('com.google.code.findbugs:jsr305:jar:1.3.9'),
+        transitive('org.reflections:reflections:jar:0.9.9-RC1'),
+        transitive('net.sf.jung:jung-api:jar:2.0.1'),
+        transitive('net.sf.jung:jung-graph-impl:jar:2.0.1'),
+        transitive('net.sf.jung:jung-algorithms:jar:2.0.1')
 
-  pmd.enabled = true
+    test.with transitive('org.easymock:easymock:jar:3.1'),
+        transitive('org.hamcrest:hamcrest-core:jar:1.3')
 
-  findbugs.enabled = true
+    pmd.enabled = true
 
-  cobertura.check.line_rate = 100
-  cobertura.check.branch_rate = 100
+    findbugs.enabled = true
 
-  javancss.enabled = true
+    cobertura.check.line_rate = 100
+    cobertura.check.branch_rate = 100
 
-  package :jar,
-      :id => 'flux'
+    javancss.enabled = true
+
+    package :jar,
+        :id => 'flux'
 end
