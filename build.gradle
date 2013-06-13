@@ -3,22 +3,12 @@
  *
  * We automatically run checkstyle, pmd and findbugs during the check task.
  */
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.eriwen:gradle-cobertura-plugin:1.1.0'
-    }
-}
-
 apply plugin: 'java'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
-//apply plugin: 'cobertura'
-
-// TODO add cobertura report/check
+apply plugin: 'jdepend'
+apply plugin: 'build-dashboard'
 
 repositories {
     mavenCentral()
@@ -48,6 +38,13 @@ tasks.withType(Pmd) {
 tasks.withType(FindBugs) {
     reports {
         html.enabled = true
+        xml.enabled = false
+    }
+}
+
+tasks.withType(JDepend) {
+    reports {
+        text.enabled = true
         xml.enabled = false
     }
 }
