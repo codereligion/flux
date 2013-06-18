@@ -131,12 +131,19 @@ public abstract class AbstractConverterFinderTest {
 
         final ConverterFinder mapping = new DirectConverterFinder(Features.defaults(),
             ImmutableMap.<Key<?, ?>, Converter<?, ?>>of(
-                Key.of(String.class, new TypeToken<List<String>>() {}), converter
+                Key.of(String.class, new TypeToken<List<String>>() {
+
+                    private static final long serialVersionUID = 1;
+
+                }), converter
             ));
 
 
         final TypeToken<String> input = TypeToken.of(String.class);
         final TypeToken<List<String>> output = new TypeToken<List<String>>() {
+
+            private static final long serialVersionUID = 1;
+
         };
 
         Assert.assertSame(converter, mapping.search(input, output));

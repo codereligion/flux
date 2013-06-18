@@ -2,6 +2,8 @@ package org.whiskeysierra.flux;
 
 public final class UnknownConversionException extends RuntimeException {
 
+    private static final long serialVersionUID = 1;
+
     public UnknownConversionException(String message) {
         super(message);
     }

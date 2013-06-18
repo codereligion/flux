@@ -2,6 +2,8 @@ package org.whiskeysierra.flux;
 
 public final class ConfigurationException extends RuntimeException {
 
+    private static final long serialVersionUID = 1;
+
     public ConfigurationException(String message) {
         super(message);
     }

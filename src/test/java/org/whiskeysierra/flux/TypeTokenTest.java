@@ -16,12 +16,18 @@ public final class TypeTokenTest {
     @Test
     public void equals() {
         Assert.assertEquals(TypeToken.of(String.class), new TypeToken<String>() {
+
+            private static final long serialVersionUID = 1;
+
         });
     }
 
     @Test
     public void converterType() {
         final TypeToken<Converter<String, Boolean>> expected = new TypeToken<Converter<String, Boolean>>() {
+
+            private static final long serialVersionUID = 1;
+
         };
 
         final Converter<?, ?> converter = new StringToBooleanConverter();

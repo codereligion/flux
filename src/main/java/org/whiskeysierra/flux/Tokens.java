@@ -12,10 +12,28 @@ public final class Tokens {
 
     public static final class Wildcard {
 
-        public static final TypeToken<Iterable<?>> ITERABLE = new TypeToken<Iterable<?>>() {};
-        public static final TypeToken<Collection<?>> COLLECTION = new TypeToken<Collection<?>>() {};
-        public static final TypeToken<List<?>> LIST = new TypeToken<List<?>>() {};
-        public static final TypeToken<Map<?, ?>> MAP = new TypeToken<Map<?, ?>>() {};
+        public static final TypeToken<Iterable<?>> ITERABLE = new TypeToken<Iterable<?>>() {
+
+            private static final long serialVersionUID = 1;
+
+        };
+
+        public static final TypeToken<Collection<?>> COLLECTION = new TypeToken<Collection<?>>() {
+
+            private static final long serialVersionUID = 1;
+
+        };
+
+        public static final TypeToken<List<?>> LIST = new TypeToken<List<?>>() {
+
+            private static final long serialVersionUID = 1;
+
+        };
+
+        public static final TypeToken<Map<?, ?>> MAP = new TypeToken<Map<?, ?>>() {
+
+            private static final long serialVersionUID = 1;
+        };
 
         private Wildcard() {
 
@@ -34,8 +52,14 @@ public final class Tokens {
 
     public static <E> TypeToken<Iterable<E>> forIterable(TypeToken<E> elementType) {
         Preconditions.checkNotNull(elementType, "ElementType");
-        return new TypeToken<Iterable<E>>() {}.
-            where(new TypeParameter<E>() {}, elementType);
+
+        final TypeToken<Iterable<E>> token = new TypeToken<Iterable<E>>() {
+
+            private static final long serialVersionUID = 1;
+
+        };
+
+        return token.where(new TypeParameter<E>() {}, elementType);
     }
 
     public static <E> TypeToken<List<E>> forList(Class<E> elementType) {
@@ -45,8 +69,14 @@ public final class Tokens {
 
     public static <E> TypeToken<List<E>> forList(TypeToken<E> elementType) {
         Preconditions.checkNotNull(elementType, "ElementType");
-        return new TypeToken<List<E>>() {}.
-            where(new TypeParameter<E>() {}, elementType);
+
+        final TypeToken<List<E>> token = new TypeToken<List<E>>() {
+
+            private static final long serialVersionUID = 1;
+
+        };
+
+        return token.where(new TypeParameter<E>() {}, elementType);
     }
 
     public static <K> TypeToken<Map<K, Convertable>> forMap(Class<K> keyType) {
@@ -63,8 +93,16 @@ public final class Tokens {
     public static <K, V> TypeToken<Map<K, V>> forMap(TypeToken<K> keyType, TypeToken<V> valueType) {
         Preconditions.checkNotNull(keyType, "KeyType");
         Preconditions.checkNotNull(valueType, "ValueType");
-        return new TypeToken<Map<K, V>>() {}.
-            where(new TypeParameter<K>() {}, keyType).
+
+        final TypeToken<Map<K, V>> token = new TypeToken<Map<K, V>>() {
+
+            private static final long serialVersionUID = 1;
+
+        };
+
+        return token.
+            where(new TypeParameter<K>() {
+            }, keyType).
             where(new TypeParameter<V>() {}, valueType);
     }
 

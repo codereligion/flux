@@ -35,7 +35,11 @@ public final class IntegrationTest {
     @Test
     public void castToken() {
         final Object expected = Arrays.asList("a", "b", "c");
-        final List<String> actual = unit().convert(expected).cast(new TypeToken<List<String>>() {});
+        final List<String> actual = unit().convert(expected).cast(new TypeToken<List<String>>() {
+
+            private static final long serialVersionUID = 1;
+
+        });
         Assert.assertSame(expected, actual);
     }
 
@@ -47,19 +51,35 @@ public final class IntegrationTest {
 
     @Test
     public void toToken() {
-        final long value = unit().convert("12345").to(new TypeToken<Long>() {});
+        final long value = unit().convert("12345").to(new TypeToken<Long>() {
+
+            private static final long serialVersionUID = 1;
+
+        });
         Assert.assertEquals(12345L, value);
     }
 
     @Test
     public void convertWithTypeHint() {
-        final long value = unit().convert("12345", String.class).to(new TypeToken<Long>() {});
+        final long value = unit().convert("12345", String.class).to(new TypeToken<Long>() {
+
+            private static final long serialVersionUID = 1;
+
+        });
         Assert.assertEquals(12345L, value);
     }
 
     @Test
     public void convertWithTypeTokenHint() {
-        final long value = unit().convert("12345", new TypeToken<String>() {}).to(new TypeToken<Long>() {});
+        final long value = unit().convert("12345", new TypeToken<String>() {
+
+            private static final long serialVersionUID = 1;
+
+        }).to(new TypeToken<Long>() {
+
+            private static final long serialVersionUID = 1;
+
+        });
         Assert.assertEquals(12345L, value);
     }
 
