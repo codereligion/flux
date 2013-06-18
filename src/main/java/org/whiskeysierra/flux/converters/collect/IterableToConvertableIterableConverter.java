@@ -21,6 +21,7 @@ final class IterableToConvertableIterableConverter<T> implements Converter<Itera
     }
 
     private <V extends Iterable<T>> TypeToken<T> getTypeParameterType(TypeToken<V> type) {
+        @SuppressWarnings("rawtypes")
         final TypeVariable<Class<Iterable>>[] parameters = Iterable.class.getTypeParameters();
         final TypeToken<? super V> supertype = type.getSupertype(Iterable.class);
         return cast(supertype.resolveType(parameters[0]));

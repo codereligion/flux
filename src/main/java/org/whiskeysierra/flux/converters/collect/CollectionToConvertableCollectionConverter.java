@@ -22,6 +22,7 @@ final class CollectionToConvertableCollectionConverter<T> implements Converter<C
     }
 
     private <V extends Collection<T>> TypeToken<T> getTypeParameterType(TypeToken<V> type) {
+        @SuppressWarnings("rawtypes")
         final TypeVariable<Class<Collection>>[] parameters = Collection.class.getTypeParameters();
         final TypeToken<? super V> supertype = type.getSupertype(Collection.class);
         return cast(supertype.resolveType(parameters[0]));

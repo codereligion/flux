@@ -22,6 +22,7 @@ final class ListToConvertableListConverter<T> implements Converter<List<T>, List
     }
 
     private <V extends List<T>> TypeToken<T> getTypeParameterType(TypeToken<V> type) {
+        @SuppressWarnings("rawtypes")
         final TypeVariable<Class<List>>[] parameters = List.class.getTypeParameters();
         final TypeToken<? super V> supertype = type.getSupertype(List.class);
         return cast(supertype.resolveType(parameters[0]));

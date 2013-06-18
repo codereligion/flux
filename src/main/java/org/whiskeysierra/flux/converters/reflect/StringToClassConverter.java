@@ -7,6 +7,7 @@ import org.whiskeysierra.flux.spi.Converter;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings("rawtypes")
 public final class StringToClassConverter implements Converter<String, Class> {
 
     @Nullable

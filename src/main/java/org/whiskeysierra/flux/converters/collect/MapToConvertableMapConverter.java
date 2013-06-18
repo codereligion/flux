@@ -24,6 +24,7 @@ public final class MapToConvertableMapConverter<K, T> implements Converter<Map<K
     }
 
     private <V extends Map<K, T>> TypeToken<T> getValueParameterType(TypeToken<V> type) {
+        @SuppressWarnings("rawtypes")
         final TypeVariable<Class<Map>>[] parameters = Map.class.getTypeParameters();
         final TypeToken<? super V> supertype = type.getSupertype(Map.class);
         return cast(supertype.resolveType(parameters[1]));

@@ -19,7 +19,7 @@ public final class Key<I, O> {
         if (this == that) {
             return true;
         } else if (that instanceof Key) {
-            final Key other = Key.class.cast(that);
+            final Key<?, ?> other = Key.class.cast(that);
             return Objects.equal(input, other.input) && Objects.equal(output, other.output);
         } else {
             return false;

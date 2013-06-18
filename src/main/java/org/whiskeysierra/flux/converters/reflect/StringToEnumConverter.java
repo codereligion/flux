@@ -6,6 +6,7 @@ import org.whiskeysierra.flux.spi.Converter;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings("rawtypes")
 public final class StringToEnumConverter implements Converter<String, Enum> {
 
     @Nullable

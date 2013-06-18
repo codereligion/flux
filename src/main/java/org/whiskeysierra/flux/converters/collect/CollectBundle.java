@@ -17,7 +17,7 @@ public final class CollectBundle implements Bundle {
         convert.using(new IterableToConvertableIterableConverter<Object>());
         convert.using(new ListToConvertableListConverter<Object>());
 
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings({"unchecked", "rawtypes"})
         final Converter<Map<?, ?>, Map<Object, Convertable>> mapConverter = new MapToConvertableMapConverter();
         convert.from(Wildcard.MAP).to(Tokens.forMap(Object.class)).using(mapConverter);
     }

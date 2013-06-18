@@ -43,6 +43,7 @@ public final class TypeTokenTest {
         final Converter<?, ?> converter = new StringToBooleanConverter();
         final TypeToken<?> token = TypeToken.of(converter.getClass()).getSupertype(Converter.class);
 
+        @SuppressWarnings("rawtypes")
         final TypeVariable<Class<Converter>>[] typeParameters = Converter.class.getTypeParameters();
         final TypeToken<?> actual = token.resolveType(typeParameters[1]);
 

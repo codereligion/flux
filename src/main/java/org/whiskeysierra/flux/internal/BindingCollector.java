@@ -100,6 +100,7 @@ public final class BindingCollector implements Convert {
     @Override
     public <I, O> void using(Converter<I, O> converter) {
         final TypeToken<?> token = TypeToken.of(converter.getClass()).getSupertype(Converter.class);
+        @SuppressWarnings("rawtypes")
         final TypeVariable<Class<Converter>>[] typeParameters = Converter.class.getTypeParameters();
 
         @SuppressWarnings("unchecked")

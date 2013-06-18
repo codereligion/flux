@@ -8,6 +8,7 @@ import org.whiskeysierra.flux.spi.Dependency;
 import javax.annotation.Nullable;
 
 @Dependency(input = String.class, output = Class.class)
+@SuppressWarnings("rawtypes")
 public final class StringToTypeTokenConverter implements Converter<String, TypeToken> {
 
     @Nullable
