@@ -4,7 +4,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-group = 'org.whiskeysierra'
+group = 'com.codereligion'
 version = '0.1-SNAPSHOT'
 ext.packaging = 'jar'
 
@@ -69,13 +69,13 @@ uploadArchives {
                 pom.project {
                     name 'flux'
                     packaging 'jar'
-                    description 'Flux is a fluent-interface type-conversion framework for the Java platform'
-                    url 'http://whiskeysierra.github.com/flux'
+                    description 'Flux is a fluent-interface type-conversion framework for the Java platform.'
+                    url 'https://github.com/codereligion/flux'
 
                     scm {
-                        url 'scm:git@github.com:whiskeysierra/flux.git'
-                        connection 'scm:git@github.com:whiskeysierra/flux.git'
-                        developerConnection 'scm:git@github.com:whiskeysierra/flux.git'
+                        url 'scm:git@github.com:codereligion/flux.git'
+                        connection 'scm:git@github.com:codereligion/flux.git'
+                        developerConnection 'scm:git@github.com:codereligion/flux.git'
                     }
 
                     licenses {
