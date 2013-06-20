@@ -25,11 +25,9 @@ When creating the Capacitor, you can pass in a FeatureSet, defining which featur
 
 ### Bundles
 
-## Maven
-
 ## Build Requirements
  - Java 1.6 or higher
- - Maven 3
+ - Gradle 1.6
 
 
 ## Attributions
