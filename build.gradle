@@ -1,14 +1,14 @@
-/**
- * The flux build script.
- *
- * We automatically run checkstyle, pmd and findbugs during the check task.
- */
+import org.gradle.api.artifacts.maven.MavenDeployment
+
 apply plugin: 'java'
-apply plugin: 'checkstyle'
-apply plugin: 'pmd'
-apply plugin: 'findbugs'
-apply plugin: 'jdepend'
-apply plugin: 'build-dashboard'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+group = 'org.whiskeysierra'
+version = '0.1-SNAPSHOT'
+ext.packaging = 'jar'
+
+def dev = false
 
 repositories {
     mavenCentral()
@@ -29,55 +29,71 @@ dependencies {
 }
 
 tasks.withType(JavaCompile) {
-    options.compilerArgs = [
-        '-proc:none', '-Werror', '-Xlint'
-    ]
+    options.compilerArgs = ['-proc:none', '-Werror', '-Xlint']
 }
 
-tasks.withType(Pmd) {
-    reports {
-        html.enabled = true
-        xml.enabled = false
-    }
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
 }
 
-tasks.withType(FindBugs) {
-    reports {
-        html.enabled = true
-        xml.enabled = false
-    }
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
 }
 
-tasks.withType(JDepend) {
-    reports {
-        text.enabled = true
-        xml.enabled = false
-    }
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
 }
 
-def generateCheckstyleReport(def checkType) {
-    if (file("${buildDir}/reports/checkstyle/${checkType}.xml").exists()) {
-        ant.xslt(
-            in: "${buildDir}/reports/checkstyle/${checkType}.xml",
-            style: "config/checkstyle/checkstyle.xsl",
-            out: "${buildDir}/reports/checkstyle/${checkType}.html"
-        )
-    }
+signing {
+    sign configurations.archives
 }
 
-task checkstyleReport << {
-    generateCheckstyleReport("main")
-    generateCheckstyleReport("test")
-}
+uploadArchives {
+    repositories {
+        if (dev) {
+            mavenLocal()
+        } else {
+            mavenDeployer {
+                beforeDeployment {
+                    MavenDeployment deployment -> signing.signPom(deployment)
+                }
 
-task quality(dependsOn: ['checkstyleMain', 'checkstyleTest'])
+                repository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
+                    authentication(userName: sonatypeUsername, password: sonatypePassword)
+                }
 
-gradle.taskGraph.afterTask { Task task, TaskState state ->
-    if (task.name in ['checkstyleMain', 'checkstyleTest']) {
-        def matcher = task.name =~ /^checkstyle(.*)$/
-        if (matcher.matches()) {
-            def checkType = matcher.group(1).toLowerCase()
-            generateCheckstyleReport(checkType)
+                pom.project {
+                    name 'flux'
+                    packaging 'jar'
+                    description 'Flux is a fluent-interface type-conversion framework for the Java platform'
+                    url 'http://whiskeysierra.github.com/flux'
+
+                    scm {
+                        url 'scm:git@github.com:whiskeysierra/flux.git'
+                        connection 'scm:git@github.com:whiskeysierra/flux.git'
+                        developerConnection 'scm:git@github.com:whiskeysierra/flux.git'
+                    }
+
+                    licenses {
+                        license {
+                            name 'The Apache Software License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            distribution 'repo'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'whiskeysierra'
+                            name 'Willi Schönborn'
+                        }
+                    }
+                }
+            }
         }
     }
 }
