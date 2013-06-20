@@ -46,8 +46,14 @@ artifacts {
     archives sourcesJar
 }
 
-signing {
-    sign configurations.archives
+if (dev) {
+    task signArchives {
+
+    }
+} else {
+    signing {
+        sign configurations.archives
+    }
 }
 
 uploadArchives {
