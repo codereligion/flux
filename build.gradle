@@ -71,7 +71,7 @@ uploadArchives {
                 }
 
                 pom.project {
-                    name 'flux'
+                    name 'codereligion-flux'
                     packaging 'jar'
                     description 'Flux is a fluent-interface type-conversion framework for the Java platform.'
                     url 'https://github.com/codereligion/flux'
