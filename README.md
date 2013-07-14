@@ -115,10 +115,6 @@ You can than just open a pull-request, which will be highly appreciated.
 ## Attributions/Links
 The Grappling Hook icon was found on [http://ztreasureisle.wikia.com/](http://ztreasureisle.wikia.com/wiki/File:NinjaGear_Grappling_Hook-icon.png).
 
-The clint library: https://github.com/kennethreitz/clint
-
-argparse: http://docs.python.org/dev/library/argparse.html
-
 A good tutorial on the `git subtree` command can be found 
 [here](http://blogs.atlassian.com/2013/05/alternatives-to-git-submodule-git-subtree/).
 
