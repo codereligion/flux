@@ -42,6 +42,7 @@ def relativize(path):
 
 try:
     hook_directory = os.path.join(parent, '.git/hooks')
+    dispatcher = os.path.join(current, 'dispatcher')
 
     if not os.path.exists(hook_directory):
         raise IOError('%s does not exist' % hook_directory)
@@ -50,15 +51,11 @@ try:
         raise IOError('%s is not a directory' % hook_directory)
 
     def install():
-        print "Installing!"
-
         for hook in hooks:
             target = os.path.join(hook_directory, hook)
-            dispatcher = os.path.join(current, 'dispatcher')
 
-            # target exists, is a symlink and the target is our dispatcher
             if os.path.islink(target) and os.path.realpath(target) == dispatcher:
-                # we can savely assume, we can overwrite it ;)
+                # we can savely assume, we created it in the first place
                 os.unlink(target)
 
             if os.path.exists(target):
@@ -74,7 +71,21 @@ try:
             print 'Linking %s to %s [%s]' % (relativize(dispatcher), relativize(target), state)
 
     def uninstall():
-        print "Uninstalling!"
+        for hook in hooks:
+            target = os.path.join(hook_directory, hook)
+
+            if os.path.islink(target) and os.path.realpath(target) == dispatcher:
+                try:
+                    # we can savely assume, we created it in the first place
+                    os.unlink(target)
+                    state = colored.green('done')
+                except OSError:
+                    state = colored.red('failed')
+            else:
+                # exists and is not one of our symlinks, leave it alone!
+                state = colored.yellow('skipped')
+
+            print 'Unlinking %s [%s]' % (relativize(target), state)
 
     def unknown():
         raise Exception('Not yet implemented: %s' % args.command)
