@@ -1,4 +1,4 @@
-# ![Grappling hook](http://images.wikia.com/ztreasureisle/images/f/f7/NinjaGear_Grappling_Hook-icon.png) Git Hooks Dispatcher
+# ![Grappling hook](https://raw.github.com/whiskeysierra/git-hooks-dispatcher/master/icon.png) Git Hooks Dispatcher
 
 The Git Hooks Dispatcher is a small dispatcher scripts for your git hooks. 
 It runs them for you and allows you to track your hooks together with 
