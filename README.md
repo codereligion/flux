@@ -18,7 +18,7 @@ To install the required python libraries run:
 ## Installation
 Add the repository as a subtree in your existing repository:
 
-    git subtree add --prefix git-hooks-dispatcher git@github.com:whiskeysierra/git-hooks-dispatcher.git
+    git subtree add -P git-hooks-dispatcher git@github.com:whiskeysierra/git-hooks-dispatcher.git
     
 Install the dispatcher
 
