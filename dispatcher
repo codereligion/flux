@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import subprocess
 import sys
 
 current = os.path.dirname(os.path.realpath(__file__))
@@ -17,8 +18,9 @@ try:
     if not os.path.isdir(hook_directory):
         sys.exit(0)
 
-    for script in os.listdir(hook_directory):
-        print script
+    for directory, directories, scripts in os.walk(hook_directory, followlinks=True):
+        for script in scripts:
+            subprocess.call([os.path.join(directory, script)])
 
 except Exception, e:
     sys.stderr.write('%s\n' % e)
