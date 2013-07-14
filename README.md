@@ -13,8 +13,7 @@ Everything a new contributor needs to do after a `git clone` is:
  
 To install the required python libraries run:
     
-    sudo pip install argparse
-    sudo pip install clint
+    sudo pip install -r requirements.txt
 
 ## Installation
 Add the repository as a subtree in your existing repository:
