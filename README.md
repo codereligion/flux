@@ -83,6 +83,12 @@ If you want to pull the latest changes to the dispatcher, run:
 Feel free to add a handy git alias for the last command to your `.git/config` or `~/.gitconfig` if you
 find the command to noisy. I sure do ;)
 
+    git config --global alias.update-dispatcher 'subtree pull -P git-hooks-dispatcher git@github.com:whiskeysierra/git-hooks-dispatcher.git master'
+
+You can now run updates in any of your projects with:
+
+    git update-dispatcher
+
 ## Uninstall
 
 To uninstall the dispatcher, use:
