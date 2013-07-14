@@ -50,9 +50,12 @@ The dispatcher is now installed and fully operational. But we didn't create any 
         echo "git stash pop" 1>&2
         exit 1
     fi' > git-hooks/pre-commit.d/enforce-feature-branch.sh
-    
+   
+We just created a `pre-commit` hook which enforces feature branches by suppressing commits
+on the `master` branch.
+   
 Basically, you'll need a directory `git-hooks` which contains one directory for each hook type
-(empty directories can be omitted):
+(empty directories can be omitted). Please note the `.d` at the end!
 
        |-git-hooks
        |---commit-msg.d
@@ -70,6 +73,18 @@ If you want to pull the latest changes to the dispatcher, run:
 
 Feel free to add a handy git alias for the last command to your `.git/config` or `~/.gitconfig` if you
 find the command to noisy. I sure do ;)
+
+## Uninstall
+
+To uninstall the dispatcher, use:
+
+    git-hooks-dispatcher/manage uninstall
+    
+Which will remove all symlinks created by the dispatcher. Existing files or old symlinks will be left as-is.
+You can now remove the subtree and commit the changes to your repository.
+
+    git rm -r git-hooks-dispatcher
+    git commit -m "Removed Git Hooks Dispatcher"
 
 ## Contributing
 
