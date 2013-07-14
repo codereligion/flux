@@ -56,10 +56,22 @@ try:
             target = os.path.join(hook_directory, hook)
             dispatcher = os.path.join(current, 'dispatcher')
 
-            result = os.symlink(dispatcher, target)
-            print result
+            # target exists, is a symlink and the target is our dispatcher
+            if os.path.islink(target) and os.path.realpath(target) == dispatcher:
+                # we can savely assume, we can overwrite it ;)
+                os.unlink(target)
 
-            print 'Linking %s to %s [%s]' % (relativize(dispatcher), relativize(target), colored.green('done'))
+            if os.path.exists(target):
+                # exists and is not one of our symlinks, leave it alone!
+                state = colored.yellow('exists')
+            else:
+                try:
+                    os.symlink(dispatcher, target)
+                    state = colored.green('done')
+                except OSError:
+                    state = colored.red('failed')
+
+            print 'Linking %s to %s [%s]' % (relativize(dispatcher), relativize(target), state)
 
     def uninstall():
         print "Uninstalling!"
