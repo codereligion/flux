@@ -58,41 +58,45 @@ if (dev) {
 
 uploadArchives {
     repositories {
-        mavenDeployer {
-            beforeDeployment {
-                MavenDeployment deployment -> signing.signPom(deployment)
-            }
-
-            repository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
-            }
-
-            pom.artifactId = 'codereligion-flux'
-
-            pom.project {
-                name 'Flux'
-                packaging 'jar'
-                description 'Flux is a fluent-interface type-conversion framework for the Java platform.'
-                url 'https://github.com/codereligion/flux'
-
-                scm {
-                    url 'scm:git@github.com:codereligion/flux.git'
-                    connection 'scm:git@github.com:codereligion/flux.git'
-                    developerConnection 'scm:git@github.com:codereligion/flux.git'
+        if (dev) {
+            mavenLocal()
+        } else {
+            mavenDeployer {
+                beforeDeployment {
+                    MavenDeployment deployment -> signing.signPom(deployment)
                 }
 
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        distribution 'repo'
+                repository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
+                    authentication(userName: sonatypeUsername, password: sonatypePassword)
+                }
+
+                pom.artifactId = 'codereligion-flux'
+
+                pom.project {
+                    name 'Flux'
+                    packaging 'jar'
+                    description 'Flux is a fluent-interface type-conversion framework for the Java platform.'
+                    url 'https://github.com/codereligion/flux'
+
+                    scm {
+                        url 'scm:git@github.com:codereligion/flux.git'
+                        connection 'scm:git@github.com:codereligion/flux.git'
+                        developerConnection 'scm:git@github.com:codereligion/flux.git'
                     }
-                }
 
-                developers {
-                    developer {
-                        id 'whiskeysierra'
-                        name 'Willi Schönborn'
+                    licenses {
+                        license {
+                            name 'The Apache Software License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            distribution 'repo'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'whiskeysierra'
+                            name 'Willi Schönborn'
+                        }
                     }
                 }
             }
