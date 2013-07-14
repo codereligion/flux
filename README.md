@@ -9,7 +9,7 @@ Everything a new contributor needs to do after a `git clone` is:
 
 ## Requirements
 
-- Python 2.7.5 or higher
+- Python 2.6 or higher
  
 To install the required python libraries run:
     
