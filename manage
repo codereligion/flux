@@ -41,7 +41,7 @@ def relativize(path):
 
 
 try:
-    hook_directory = os.path.join(parent, os.path.join('.git', 'hooks'))
+    hook_directory = os.path.join(parent, '.git', 'hooks')
     dispatcher = os.path.join(current, 'dispatcher')
 
     if not os.path.exists(hook_directory):
