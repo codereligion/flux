@@ -8,19 +8,18 @@ current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)
 
 hook = os.path.basename(sys.argv[0])
-hooks_directory = os.path.join(parent, 'git-hooks')
-hook_directory = os.path.join(hooks_directory, hook + '.d')
+directory = os.path.join(parent, 'git-hooks', hook + '.d')
 
 try:
-    if not os.path.exists(hook_directory):
+    if not os.path.exists(directory):
         sys.exit(0)
 
-    if not os.path.isdir(hook_directory):
+    if not os.path.isdir(directory):
         sys.exit(0)
 
-    for directory, directories, scripts in os.walk(hook_directory, followlinks=True):
+    for path, directories, scripts in os.walk(directory, followlinks=True):
         for script in scripts:
-            subprocess.call([os.path.join(directory, script)])
+            subprocess.call([os.path.join(path, script)])
 
 except Exception, e:
     sys.stderr.write('%s\n' % e)
