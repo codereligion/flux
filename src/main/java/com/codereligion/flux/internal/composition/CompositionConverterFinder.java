@@ -1,4 +1,4 @@
-package com.codereligion.flux.internal.transitive;
+package com.codereligion.flux.internal.composition;
 
 import com.codereligion.flux.Feature;
 import com.codereligion.flux.FeatureSet;
@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 // TODO model inheritence in the graph using cast-converters
-public final class TransitiveConverterFinder extends AbstractConverterFinder {
+public final class CompositionConverterFinder extends AbstractConverterFinder {
 
     // TODO make configurable?!
     private static final int NORMAL_WEIGHT = 1;
@@ -31,7 +31,7 @@ public final class TransitiveConverterFinder extends AbstractConverterFinder {
     private final DijkstraShortestPath<TypeToken<?>, Weighted> dijkstra =
         new DijkstraShortestPath<TypeToken<?>, Weighted>(graph, Weighted.TRANSFORMER);
 
-    public TransitiveConverterFinder(FeatureSet features, Map<Key<?, ?>, Converter<?, ?>> map) {
+    public CompositionConverterFinder(FeatureSet features, Map<Key<?, ?>, Converter<?, ?>> map) {
         super(features);
 
         Preconditions.checkNotNull(map, "Map");

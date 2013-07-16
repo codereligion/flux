@@ -18,9 +18,11 @@ public enum Feature {
     IDENTITY,
 
     /**
-     * Support transitive bindings, i.e. chain converters when applicable.
+     * Support composition, i.e. chain converters when applicable. E.g. if there are converters configured
+     * for the following conversions: A -> B and B -> C, when using composition, there is also an
+     * implicit converter from A -> C, being the sequential execution of both converters.
      */
-    TRANSITIVE,
+    COMPOSITION,
 
     /**
      * A missing converter binding will result in a null value, rather than an {@link UnknownConversionException}.

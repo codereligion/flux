@@ -12,7 +12,7 @@ import org.junit.Test;
 import com.codereligion.flux.converters.base.BaseBundle;
 import com.codereligion.flux.converters.wrappers.StringToIntegerConverter;
 
-public final class TransitiveSuperTypingSubTypingFeatureTest {
+public final class CompositionSuperTypingSubTypingFeatureTest {
 
     private final Object value = new Object() {
         @Override
@@ -34,42 +34,42 @@ public final class TransitiveSuperTypingSubTypingFeatureTest {
 
     @Test
     public void testEnabled() {
-        final Capacitor capacitor = createCapacitor(Feature.SUPER_TYPING, Feature.SUB_TYPING, Feature.TRANSITIVE);
+        final Capacitor capacitor = createCapacitor(Feature.SUPER_TYPING, Feature.SUB_TYPING, Feature.COMPOSITION);
         Assert.assertEquals(17, capacitor.convert(value).to(Number.class));
     }
 
     @Test(expected = UnknownConversionException.class)
     public void testNoSuperTyping() {
-        final Capacitor capacitor = createCapacitor(Feature.SUB_TYPING, Feature.TRANSITIVE);
+        final Capacitor capacitor = createCapacitor(Feature.SUB_TYPING, Feature.COMPOSITION);
         capacitor.convert(value).to(Number.class);
     }
 
     @Test(expected = UnknownConversionException.class)
     public void testNoSubTyping() {
-        final Capacitor capacitor = createCapacitor(Feature.SUPER_TYPING, Feature.TRANSITIVE);
+        final Capacitor capacitor = createCapacitor(Feature.SUPER_TYPING, Feature.COMPOSITION);
         capacitor.convert(value).to(Number.class);
     }
 
     @Test(expected = UnknownConversionException.class)
-    public void testNoTransitive() {
+    public void testNoComposition() {
         final Capacitor capacitor = createCapacitor(Feature.SUPER_TYPING, Feature.SUB_TYPING);
         capacitor.convert(value).to(Number.class);
     }
 
     @Test(expected = UnknownConversionException.class)
     public void testNoSuperTypingAndSubTyping() {
-        final Capacitor capacitor = createCapacitor(Feature.TRANSITIVE);
+        final Capacitor capacitor = createCapacitor(Feature.COMPOSITION);
         capacitor.convert(value).to(Number.class);
     }
 
     @Test(expected = UnknownConversionException.class)
-    public void testNoSuperTypingAndTransitive() {
+    public void testNoSuperTypingAndComposition() {
         final Capacitor capacitor = createCapacitor(Feature.SUB_TYPING);
         capacitor.convert(value).to(Number.class);
     }
 
     @Test(expected = UnknownConversionException.class)
-    public void testNoSubTypingAndTransitive() {
+    public void testNoSubTypingAndComposition() {
         final Capacitor capacitor = createCapacitor(Feature.SUPER_TYPING);
         capacitor.convert(value).to(Number.class);
     }

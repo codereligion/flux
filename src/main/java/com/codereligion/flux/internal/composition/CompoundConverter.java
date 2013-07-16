@@ -1,4 +1,4 @@
-package com.codereligion.flux.internal.transitive;
+package com.codereligion.flux.internal.composition;
 
 import com.google.common.base.Preconditions;
 import com.google.common.reflect.TypeToken;
