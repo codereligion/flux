@@ -68,50 +68,50 @@ public final class UnboxingFeatureTest {
     }
 
     @Test
-    public void toBooleanEnabledAndTranstive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void toBooleanEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals(true, capacitor.convert("true").to(boolean.class));
     }
 
     @Test
-    public void toByteEnabledAndTranstive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void toByteEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals((byte) 127, (byte) capacitor.convert("127").to(byte.class));
     }
 
     @Test
-    public void toCharEnabledAndTranstive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void toCharEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals('a', (long) capacitor.convert("a").to(char.class));
     }
 
     @Test
-    public void toDoubleEnabledAndTranstive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void toDoubleEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals(12345d, capacitor.convert("12345").to(double.class), 0.0d);
     }
 
     @Test
-    public void toFloatEnabledAndTranstive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void toFloatEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals(12345f, capacitor.convert("12345").to(float.class), 0.0f);
     }
 
     @Test
-    public void toIntEnabledAndTranstive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void toIntEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals(12345, (int) capacitor.convert("12345").to(int.class));
     }
 
     @Test
-    public void toLongEnabledAndTranstive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void toLongEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals(12345L, (long) capacitor.convert("12345").to(long.class));
     }
 
     @Test
-    public void toShortEnabledAndTranstive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void toShortEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals((short) 12345, (short) capacitor.convert("12345").to(short.class));
     }
 
@@ -212,50 +212,50 @@ public final class UnboxingFeatureTest {
     }
 
     @Test
-    public void fromBooleanEnabledAndTransitive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void fromBooleanEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals("true", capacitor.convert(true).to(String.class));
     }
 
     @Test
-    public void fromByteEnabledAndTransitive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void fromByteEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals("127", capacitor.convert((byte) 127).to(String.class));
     }
 
     @Test
-    public void fromCharEnabledAndTransitive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void fromCharEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals("a", capacitor.convert('a').to(String.class));
     }
 
     @Test
-    public void fromDoubleEnabledAndTransitive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void fromDoubleEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals("12345.0", capacitor.convert(12345d).to(String.class));
     }
 
     @Test
-    public void fromFloatEnabledAndTransitive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void fromFloatEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals("12345.0", capacitor.convert(12345f).to(String.class));
     }
 
     @Test
-    public void fromIntEnabledAndTransitive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void fromIntEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals("12345", capacitor.convert(12345).to(String.class));
     }
 
     @Test
-    public void fromLongEnabledAndTransitive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void fromLongEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals("12345", capacitor.convert(12345L).to(String.class));
     }
 
     @Test
-    public void fromShortEnabledAndTransitive() {
-        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.TRANSITIVE);
+    public void fromShortEnabledAndComposition() {
+        final Capacitor capacitor = createCapacitor(Feature.UNBOXING, Feature.COMPOSITION);
         Assert.assertEquals("12345", capacitor.convert((short) 12345).to(String.class));
     }
 

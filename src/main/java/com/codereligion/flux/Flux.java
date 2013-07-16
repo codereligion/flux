@@ -1,10 +1,10 @@
 package com.codereligion.flux;
 
+import com.codereligion.flux.internal.composition.CompositionConverterFinder;
 import com.google.common.base.Preconditions;
 import com.codereligion.flux.internal.BindingCollector;
 import com.codereligion.flux.internal.ConverterFinder;
 import com.codereligion.flux.internal.direct.DirectConverterFinder;
-import com.codereligion.flux.internal.transitive.TransitiveConverterFinder;
 import com.codereligion.flux.spi.Converter;
 
 import java.util.Map;
@@ -36,8 +36,8 @@ public final class Flux {
     }
 
     private static ConverterFinder createFinder(FeatureSet features, Map<Key<?, ?>, Converter<?, ?>> mapping) {
-        if (features.contains(Feature.TRANSITIVE)) {
-            return new TransitiveConverterFinder(features, mapping);
+        if (features.contains(Feature.COMPOSITION)) {
+            return new CompositionConverterFinder(features, mapping);
         } else {
             return new DirectConverterFinder(features, mapping);
         }

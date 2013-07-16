@@ -17,7 +17,7 @@ Creating the Capacitor:
 When creating the Capacitor, you can pass in a FeatureSet, defining which features you want to enable:
 
 ```java
-    final FeatureSet features = Features.of(Feature.SILENT, Feature.TRANSITIVE);
+    final FeatureSet features = Features.of(Feature.SILENT, Feature.COMPOSITION);
     final Capacitor capacitor = Flux.createCapacitor(features);
     ...
 ````

@@ -10,11 +10,11 @@ import org.junit.Test;
 import com.codereligion.flux.converters.base.BaseBundle;
 import com.codereligion.flux.converters.wrappers.StringToWrappersBundle;
 
-public final class TransitiveFeatureTest {
+public final class CompositionFeatureTest {
 
     @Test
     public void testEnabled() {
-        final Capacitor capacitor = Flux.createCapacitor(Features.of(Feature.TRANSITIVE),
+        final Capacitor capacitor = Flux.createCapacitor(Features.of(Feature.COMPOSITION),
             new StringToWrappersBundle(), new BaseBundle());
 
         Assert.assertEquals(12345L, (long) capacitor.convert("12345", Object.class).to(Long.class));
